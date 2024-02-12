@@ -8,6 +8,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {'process.env': {}},
   plugins: [
     vue(),
     AutoImport({
@@ -31,4 +32,14 @@ export default defineConfig({
       },
     },
   },
+  // 解决跨域需求
+  server: {
+    proxy: {
+      '^/api': {
+        target: 'http://t.weather.sojson.com/', //目标源，目标服务器，真实请求地址()会替换当前环境中的本地服务器baeurl
+        changeOrigin: true, //支持跨域
+        rewrite: (path) => path.replace(/^\/api/, "/api"), //重写真实路径,替换/api
+      }
+    } 
+  }
 });

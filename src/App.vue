@@ -1,10 +1,10 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue' 
 </script>
 
 <template>
-  <div>
+  <div> 
     
     <el-row class="mb-4">
       <el-button>Default</el-button>
