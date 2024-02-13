@@ -5,6 +5,6 @@ console.warn(1)
 
 <template>
     <div>
-        <h1>11111</h1>
+        <h1>日志</h1>
     </div>
 </template>

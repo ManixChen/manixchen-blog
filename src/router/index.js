@@ -1,43 +1,52 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import LoginView from "@/views/LoginView.vue";
-import ResumeView from "@/views/ResumeView.vue";
-import WorksView from "@/views/WorksView.vue";
-import BlogsView from "@/views/BlogsView.vue";
-import ContactView from "@/views/ContactView.vue";
-
+import Layout from "../views/Layout/index.vue";
+import Home from "../views/Home/index.vue";
+import LoginView from "../views/Login/index.vue";
+import Resume from "../views/Resume/index.vue";
+import Works from "../views/Works/index.vue";
+import Blogs from "../views/Blogs/index.vue";
+import Contact from "../views/Contact/index.vue";
+ 
 const router = createRouter({
+  linkActiveClass: 'active', 
+  mode: 'history',
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: HomeView, 
-    },
-    {
-      path: "/about",
-      name: "about",
-      component: () => import("../views/AboutView.vue"),
-    },
-    {
-      path: "/resume",
-      name: "resume",
-      component: ResumeView,
-    },
-    {
-      path: "/works",
-      name: "works",
-      component: WorksView,
-    },
-    {
-      path: "/blogs",
-      name: "blogs",
-      component: () => BlogsView,
-    },
-    {
-      path: "/contact",
-      name: "contact",
-      component: ContactView,
+      path:'/',
+      component: Layout, 
+      children:[
+        {
+          path: "",
+          // name: "home",
+          component: Home,
+        },
+        {
+          path: "/about",
+          name: "about",
+          component: () => import("../views/About/index.vue"),
+        },
+        {
+          path: "/resume",
+          name: "resume",
+          component: Resume,
+        },
+        {
+          path: "/works",
+          name: "works",
+          component: Works,
+        },
+        {
+          path: "/blogs",
+          name: "blogs",
+          component: Blogs,
+        },
+        {
+          path: "/contact",
+          name: "contact",
+          component: Contact,
+        },
+      ]
     },
     {
       path: "/login",
