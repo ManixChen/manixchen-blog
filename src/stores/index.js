@@ -1,4 +1,4 @@
-import { ref,toRef ,toRefs} from 'vue'
+import { ref,toRef } from 'vue'
 import { defineStore } from 'pinia'
 import { useScroll  } from "@vueuse/core";
 
@@ -6,8 +6,6 @@ export const useIndexStore = defineStore('index', () => {
   const isActive = ref(false)
 //   音乐播放
   const isPlay = ref(false) 
-  // 导航是否固定顶部
-  const isFixed = ref(false) 
   const {  y } = useScroll(window)
   // 音乐播放
   function playAudio(bgmusic) {
@@ -21,5 +19,5 @@ export const useIndexStore = defineStore('index', () => {
       isPlay.value = true
     }
   }   
-  return { isActive,isFixed,playAudio,y }
+  return { isActive,playAudio,y }
 })

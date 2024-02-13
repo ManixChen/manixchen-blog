@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { storeToRefs } from "pinia";
 import {
@@ -10,16 +10,54 @@ import {
   View,
   ChatDotSquare,
   Headset,
+  Operation,
 } from "@element-plus/icons-vue";
+const drawer = ref(false);
 import { useIndexStore } from "@/stores/index";
-const indexstore = useIndexStore(); 
-const { bgmusic,isFixed,y} = storeToRefs(indexstore);
+const indexstore = useIndexStore();
+const { bgmusic, y } = storeToRefs(indexstore);
 </script>
 
  
-<template> 
-  <div  class="router-conter bg-pink-img" >
-    <header   :class="{fixedTop:y>150}">
+<template>
+  <div class="router-conter bg-pink-img">
+    <el-button
+      class="bg-danger btn-drop-menu hidden"
+      type="default"
+      @click="drawer = true"
+    >
+      <el-icon><Operation /></el-icon>
+    </el-button>
+
+    <el-drawer
+      v-model="drawer"
+      title="I am the title"
+      :with-header="false"
+      zIndex="1111"
+      direction="ltr"
+    >
+      <RouterLink to="/"
+        ><el-icon><House /></el-icon>Home</RouterLink
+      >
+      <RouterLink to="/about"
+        ><el-icon><User /></el-icon>About</RouterLink
+      >
+      <RouterLink to="/resume"
+        ><el-icon><Document /></el-icon>Resume</RouterLink
+      >
+      <RouterLink to="/works"
+        ><el-icon><Reading /></el-icon>Works</RouterLink
+      >
+      <RouterLink to="/blogs"
+        ><el-icon><View /></el-icon>Blogs</RouterLink
+      >
+      <RouterLink to="/contact"
+        ><el-icon><ChatDotSquare /></el-icon>Contact</RouterLink
+      >
+      <RouterLink to="/login">Login</RouterLink>
+    </el-drawer>
+
+    <header :class="{ fixedTop: y > 150 }">
       <nav class="just-center">
         <RouterLink to="/"
           ><el-icon><House /></el-icon>Home</RouterLink
@@ -39,7 +77,7 @@ const { bgmusic,isFixed,y} = storeToRefs(indexstore);
         <RouterLink to="/contact"
           ><el-icon><ChatDotSquare /></el-icon>Contact</RouterLink
         >
-        <RouterLink to="/login">Login</RouterLink> 
+        <RouterLink to="/login">Login</RouterLink>
       </nav>
       <span id="musicBg" @click="indexstore.playAudio(bgmusic)">
         <el-icon><Headset /></el-icon>
@@ -59,10 +97,23 @@ const { bgmusic,isFixed,y} = storeToRefs(indexstore);
 
 
 <style lang="scss" >
-body{
-  &::after{
+body {
+  &::after {
     display: inline-block;
     clear: both;
+  }
+}
+.btn-drop-menu {
+  font-size: 1.4rem;
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  position: fixed;
+  right: -80px;
+  top: 38px;
+  &.active {
+    transform: translateX(-230px);
+    transition: all 1s;
   }
 }
 #musicBg {
@@ -98,7 +149,7 @@ body{
 .router-conter {
   margin-bottom: 30px;
   //position: fixed;
-   height: 100%;
+  height: 100%;
   //width: 100%;
 }
 .bg-pink-img {
@@ -119,34 +170,14 @@ body{
 header {
   padding-top: 30px;
   a {
-    display: inline-block;
+    background: #fff;
     transition: 0.3s;
     height: 40px;
     line-height: 40px;
     padding: 0 19px;
     min-width: 6rem;
-    background: #fff;
-    border-radius: 8px;
     color: rgb(68, 86, 108);
     text-decoration: none;
-    &:not(&:first-child) {
-      margin-left: 15px;
-    }
-    &.router-link-exact-active,
-    &:hover {
-      background-image: linear-gradient(
-        97deg,
-        rgb(250, 82, 82),
-        rgb(221, 36, 118)
-      );
-      color: #fff;
-    }
-    i {
-      margin-right: 3px;
-      vertical-align: middle;
-      transform: translateY(-2px);
-      transition: all;
-    }
   }
 
   &.fixedTop {
@@ -165,22 +196,6 @@ header {
   }
   + .main-container {
     margin-top: 100px;
-  }
-}
-
-@media screen and (max-width: 960px) {
-  .main-container {
-    max-width: 720px;
-  }
-}
-@media screen and (min-width: 961px) and (max-width: 1366px) {
-  .main-container {
-    max-width: 90%;
-  }
-}
-@media screen and (min-width: 1367px) {
-  .main-container {
-    max-width: 80%;
   }
 }
 .main-container {
@@ -222,6 +237,64 @@ header {
   margin-top: 60px;
   font-size: 1.2rem;
   color: rgba(0, 0, 0, 0.3);
+}
+
+
+@media screen and (min-width: 961px) {
+  header {
+    a {
+      border-radius: 8px;
+      display: inline-block;
+      &:not(&:first-child) {
+        margin-left: 15px;
+      }
+      &.router-link-exact-active,
+      &:hover {
+        background-image: linear-gradient(
+          97deg,
+          rgb(250, 82, 82),
+          rgb(221, 36, 118)
+        );
+        color: #fff;
+      }
+      i {
+        margin-right: 3px;
+        vertical-align: middle;
+        transform: translateY(-2px);
+        transition: all;
+      }
+    }
+  }
+}
+@media screen and (max-width: 960px) {
+  .main-container {
+    max-width: 720px;
+  }
+  header {
+    /***
+    display: none;
+    &.fixedTop{
+      display: none; 
+    }
+    **/
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      a {
+        flex-basis: 88%;
+      }
+    }
+  }
+}
+@media screen and (min-width: 961px) and (max-width: 1366px) {
+  .main-container {
+    max-width: 90%;
+  }
+}
+@media screen and (min-width: 1367px) {
+  .main-container {
+    max-width: 80%;
+  }
 }
 </style>
  
