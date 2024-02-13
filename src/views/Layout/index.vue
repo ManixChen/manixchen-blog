@@ -10,9 +10,7 @@ import {
   View,
   ChatDotSquare,
   Headset,
-  Operation,
 } from "@element-plus/icons-vue";
-const drawer = ref(false);
 import { useIndexStore } from "@/stores/index";
 const indexstore = useIndexStore();
 const { bgmusic, y } = storeToRefs(indexstore);
@@ -21,42 +19,6 @@ const { bgmusic, y } = storeToRefs(indexstore);
  
 <template>
   <div class="router-conter bg-pink-img">
-    <el-button
-      class="bg-danger btn-drop-menu hidden"
-      type="default"
-      @click="drawer = true"
-    >
-      <el-icon><Operation /></el-icon>
-    </el-button>
-
-    <el-drawer
-      v-model="drawer"
-      title="I am the title"
-      :with-header="false"
-      zIndex="1111"
-      direction="ltr"
-    >
-      <RouterLink to="/"
-        ><el-icon><House /></el-icon>Home</RouterLink
-      >
-      <RouterLink to="/about"
-        ><el-icon><User /></el-icon>About</RouterLink
-      >
-      <RouterLink to="/resume"
-        ><el-icon><Document /></el-icon>Resume</RouterLink
-      >
-      <RouterLink to="/works"
-        ><el-icon><Reading /></el-icon>Works</RouterLink
-      >
-      <RouterLink to="/blogs"
-        ><el-icon><View /></el-icon>Blogs</RouterLink
-      >
-      <RouterLink to="/contact"
-        ><el-icon><ChatDotSquare /></el-icon>Contact</RouterLink
-      >
-      <RouterLink to="/login">Login</RouterLink>
-    </el-drawer>
-
     <header :class="{ fixedTop: y > 150 }">
       <nav class="just-center">
         <RouterLink to="/"
@@ -120,7 +82,7 @@ body {
   position: absolute;
   z-index: 19;
   right: 50px;
-  top: 20px;
+  top: 36px;
   cursor: pointer;
   width: 42px;
   height: 42px;
@@ -129,14 +91,16 @@ body {
   font-size: 2em;
   line-height: 40px;
   text-align: center;
+  background-color: #ff57a3;
   /**
   background: url('../../assets/imgs/music_note_big.png');**/
   i {
-    transform: rotate(180deg);
+    color: #fff;
+    transform:scale(0.6)  rotate(180deg);
     animation: spin 1s infinite linear;
     @keyframes spin {
       100% {
-        transform: rotate(360deg);
+        transform:scale(0.6) rotate(360deg);
       }
     }
     transition: all 2s;
@@ -178,24 +142,6 @@ header {
     min-width: 6rem;
     color: rgb(68, 86, 108);
     text-decoration: none;
-  }
-
-  &.fixedTop {
-    padding-top: 0;
-    position: fixed;
-    top: 0;
-    z-index: 100;
-    transition: all;
-    nav {
-      position: fixed;
-      background: hsl(14, 100%, 53%);
-      width: 100%;
-      z-index: 10000;
-      padding: 15px;
-    }
-  }
-  + .main-container {
-    margin-top: 100px;
   }
 }
 .main-container {
@@ -239,7 +185,6 @@ header {
   color: rgba(0, 0, 0, 0.3);
 }
 
-
 @media screen and (min-width: 961px) {
   header {
     a {
@@ -264,33 +209,76 @@ header {
         transition: all;
       }
     }
+    &.fixedTop {
+      nav {
+        background: hsl(14, 100%, 53%);
+      }
+    }
+
+    &.fixedTop {
+      padding-top: 0;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+      transition: all;
+      nav {
+        position: fixed;
+        width: 100%;
+        z-index: 10000;
+        padding: 15px;
+      }
+    }
+    + .main-container {
+      margin-top: 100px;
+    }
   }
 }
+
+
+/***
+ * @Author: Manixchens
+ * @Date: 2021-05-27 14:00:00
+ * @Last Modified by: Manixchens
+ * @Last Modified time: 2021-05-27 14:00:00
+ 屏幕尺寸小于960px基本就是移动端情况，特殊处理样式
+**/
 @media screen and (max-width: 960px) {
   .main-container {
-    max-width: 720px;
+    max-width:85%;
+    
   }
-  header {
-    /***
-    display: none;
-    &.fixedTop{
-      display: none; 
-    }
-    **/
+  header {  
+    border-radius: 15px;
     nav {
       display: flex;
       flex-wrap: wrap;
       a {
         flex-basis: 88%;
+        &.router-link-exact-active,&:hover{
+          background-image: linear-gradient(97deg, rgb(250, 82, 82), rgb(221, 36, 118));
+          color: #fff;
+        }
+        &:first-child{
+          border-top-left-radius: 15px;
+          border-top-right-radius: 15px;
+        }
+        &:last-child{
+          border-bottom-left-radius: 15px;
+          border-bottom-right-radius: 15px;
+        }
       }
     }
   }
 }
+
+
 @media screen and (min-width: 961px) and (max-width: 1366px) {
   .main-container {
     max-width: 90%;
   }
 }
+
+
 @media screen and (min-width: 1367px) {
   .main-container {
     max-width: 80%;
