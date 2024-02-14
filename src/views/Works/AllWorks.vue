@@ -1,21 +1,23 @@
 <template>
-  <el-row> 
-    <el-divider />
-    <!-- 固定不变的 -->
-    <el-divider>
-      <el-icon><star-filled /></el-icon>
-    </el-divider>
-    <el-divider />
+  <div>
+    <el-row>
+      <el-divider />
+      <!-- 固定不变的 -->
+      <el-divider>
+        <el-icon><star-filled /></el-icon>
+      </el-divider>
+      <el-divider />
+    </el-row>
     <!-- 工作经历 -->
-    <EmploymentHistory /> 
+    <EmploymentHistory />
     <!-- 项目经历 -->
     <Projects />
-  </el-row>
+  </div>
 </template>
 
 <script setup>
 import { StarFilled } from "@element-plus/icons-vue";
 
 import EmploymentHistory from "../Resume/component/EmploymentHistory.vue";
-import Projects from "../Resume/component/Projects.vue"; 
+import Projects from "../Resume/component/Projects.vue";
 </script>
