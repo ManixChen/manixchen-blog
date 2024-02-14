@@ -142,6 +142,11 @@ body {
 }
 .positon-right{
   float: right;
+  &::after{
+    content: "";
+    display: table;
+    clear: both
+  }
 }
 header {
   padding-top: 30px;
