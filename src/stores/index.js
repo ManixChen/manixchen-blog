@@ -6,7 +6,7 @@ export const useIndexStore = defineStore('index', () => {
   const isActive = ref(false)
 //   音乐播放
   const isPlay = ref(false) 
-  const {  y } = useScroll(window)
+  const {  x, y } = useScroll(window)
   // 音乐播放
   function playAudio(bgmusic) {
     bgmusic = toRef(bgmusic)
@@ -19,5 +19,5 @@ export const useIndexStore = defineStore('index', () => {
       isPlay.value = true
     }
   }   
-  return { isActive,playAudio,y }
+  return { isActive,playAudio, x,y }
 })

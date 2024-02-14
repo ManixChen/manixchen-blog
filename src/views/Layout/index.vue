@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { storeToRefs } from "pinia";
 import {
@@ -13,7 +12,7 @@ import {
 } from "@element-plus/icons-vue";
 import { useIndexStore } from "@/stores/index";
 const indexstore = useIndexStore();
-const { bgmusic, y } = storeToRefs(indexstore);
+const { bgmusic,  y } = storeToRefs(indexstore);
 </script>
 
  
@@ -21,6 +20,7 @@ const { bgmusic, y } = storeToRefs(indexstore);
   <div class="router-conter bg-pink-img">
     <header :class="{ fixedTop: y > 150 }">
       <nav class="just-center">
+        <img  :src="y>60?'/public/logo-white.png':'/public/logo.png'" alt="">
         <RouterLink to="/"
           ><el-icon><House /></el-icon>Home</RouterLink
         >
