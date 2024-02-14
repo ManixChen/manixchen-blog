@@ -1,0 +1,63 @@
+<template> 
+    <!-- 工作经历 -->
+    <el-col :sm="24" :md="12">
+        <h1 class="title">Employment History</h1>
+        <el-timeline>
+          <el-timeline-item
+            center
+            timestamp="2023/12/10"
+            placement="bottom"
+            color="#0bbd87"
+          >
+            <el-card>
+              <h3>成都安宏鹏飞安科技有限公司</h3>
+              <h4>前端开发工程师</h4>
+              <p>安智商城、安智商城管理端</p>
+              <p>安智商城微信小程序</p>
+            </el-card>
+          </el-timeline-item>
+          <el-timeline-item
+            center
+            timestamp="2019/08/10"
+            placement="bottom"
+            color="#0bbd87"
+          >
+            <el-card>
+              <h3>安利日用品有限公司天津分公司</h3>
+              <h4>前端开发主管</h4>
+              <p>安利云购</p>
+              <p>安利易联网</p>
+              <p>安利商城</p>
+            </el-card>
+          </el-timeline-item>
+          <el-timeline-item
+            timestamp="2016.04-2019.07"
+            placement="bottom"
+            color="#0bbd87"
+          >
+            <el-card>
+              <h3>北京和信创天科技股份有限公司</h3>
+              <h4>Web前端全栈开发工程师</h4>
+              <p>和信统一应用管理平台VEUAM</p>
+              <p>和信下一代云桌面VENGD</p>
+              <p>和信超融合一体化平台VEHCI</p>
+              <p>和信智能数据感知分析平台VEIDP</p>
+              <p>和信云存储VECLOUD</p>
+            </el-card>
+          </el-timeline-item>
+          <el-timeline-item
+            center
+            timestamp="2015/8/2"
+            placement="bottom"
+            color="#0bbd87"
+          >
+            <el-card>
+              <h3>北京潇洒车汽车服务有限公司</h3>
+              <h4>网站设计实习生</h4>
+              <p>网站定制开发重构</p>
+              <p>自媒体运维</p>
+            </el-card>
+          </el-timeline-item>
+        </el-timeline>
+      </el-col>
+</template>

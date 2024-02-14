@@ -8,7 +8,7 @@ import {
   Reading,
   View,
   ChatDotSquare,
-  Headset,
+  Headset,Top
 } from "@element-plus/icons-vue";
 import { useIndexStore } from "@/stores/index";
 const indexstore = useIndexStore();
@@ -21,8 +21,7 @@ const { bgmusic,  y } = storeToRefs(indexstore);
     <header :class="{ fixedTop: y > 150 }">
       <nav class="just-center">
         <img  :src="y>60?'/public/logo-white.png':'/public/logo.png'" alt="">
-        <RouterLink to="/"
-          ><el-icon><House /></el-icon>Home</RouterLink
+        <RouterLink to="/home"     ><el-icon><House /></el-icon>Home</RouterLink
         >
         <RouterLink to="/about"
           ><el-icon><User /></el-icon>About</RouterLink
@@ -54,9 +53,20 @@ const { bgmusic,  y } = storeToRefs(indexstore);
       <RouterView />
       <h5 class="footer-copyright">© 2024 All Rights Reserved by Manixchens</h5>
     </div>
-  </div>
-</template>
+    
 
+    <!-- 返回顶部 -->
+    <el-backtop :bottom="100">
+      <div  style=" 
+          text-align: center;
+          line-height: 40px;
+          color: #1989fa; "   >
+        <el-icon><Top /></el-icon>
+      </div>
+    </el-backtop>
+  </div>
+
+</template>
 
 <style lang="scss" >
 body {
@@ -130,7 +140,9 @@ body {
 .align-center {
   text-align: center;
 }
-
+.positon-right{
+  float: right;
+}
 header {
   padding-top: 30px;
   a {
@@ -194,6 +206,7 @@ header {
         margin-left: 15px;
       }
       &.router-link-exact-active,
+      &.active,
       &:hover {
         background-image: linear-gradient(
           97deg,
