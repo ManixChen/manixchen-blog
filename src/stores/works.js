@@ -2,6 +2,7 @@ import { ref ,computed} from 'vue'
 import { defineStore } from 'pinia'
 
 export const useWorksStore = defineStore('works', () => {
+    // 默认图集
     const allimgs = [
         {src:"/src/assets/imgs/lunbo/project_anli_01.png",title:"安利云购",desc:"WEB VUE3、elementplus、pinia、vuerouter、vueuse"},
         {src:"/src/assets/imgs/lunbo/project_anli_04.png",title:"安利易联网",desc:"WEB VUE2、elementui、vuex、vuerouter"}, 

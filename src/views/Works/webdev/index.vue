@@ -1,10 +1,11 @@
 <script setup>
-import { computed, nextTick, onMounted } from "vue";
+import {  nextTick, onMounted } from "vue";
 import { useWorksStore } from "@/stores/works";
 import { storeToRefs } from "pinia";
 const worksStore = useWorksStore();
 const { webImgs, imgs } = storeToRefs(worksStore);
 
+// 获取当前项目类型
 const { current } = defineProps(["current"]);
 onMounted(() => {
   nextTick(worksStore.checkCurrent(current));
@@ -12,7 +13,7 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <el-row class="webdev-container" justify="center">
+    <el-row class="webdev-container" justify="center" :gutter="20">
       <el-col
         :sm="11"
         :md="7"
@@ -21,10 +22,11 @@ onMounted(() => {
         :key="key"
       >
         <div :class="`icon-info-box ${key % 2 ? 'bg-pink' : 'whiteaqua'}`">
-          <el-image
+          <el-image 
             lazy
             loading="lazy"
-            fit="contain"
+            fit="cover"
+                style="height: 100%;"
             :zoom-rate="1.2"
             :max-scale="7"
             :min-scale="0.2"
@@ -38,8 +40,7 @@ onMounted(() => {
           <p>{{ img.title }}</p>
           <strong>{{ img.desc }}</strong>
         </div>
-      </el-col>
-      <el-col :sm="24" :md="12"> </el-col>
+      </el-col> 
     </el-row>
   </div>
 </template>
@@ -51,6 +52,32 @@ onMounted(() => {
     text-align: center;
     padding: 20px 10px;
     margin-bottom: 15px;
+    /***
+    position: relative;
+    &:after{
+        content: "";
+        display: block;
+        border-radius: 25px;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 15px;
+        background: rgba(255, 113, 113, 0.6);
+        position: absolute;
+         left: 0;
+        top: -15px;
+        opacity: 0;
+    }
+    &:hover{
+        transform: scale(1.2);
+        transition-duration: 0.2s;
+        &:after{
+            margin-left: 0;
+            margin-top: 15px;
+            transition: 2s;
+            opacity: 0.2;
+        }
+    }**/
   }
 }
 </style>
