@@ -51,8 +51,8 @@ import WhatIDo from "./WhatIDo.vue";
     line-height: 2.5rem;
     text-align: center;
     font-size: 1.3rem;
-    background: #fff;
-    border: 1px solid #e5e5e5;
+    background: transparent;
+    border: 1px solid transparent;
     border-radius: 0.3rem;
     color: rgb(233, 59, 129);
   }

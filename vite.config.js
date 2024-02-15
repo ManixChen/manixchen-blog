@@ -6,7 +6,7 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
+import IconsResolver from 'unplugin-icons/resolver' 
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -31,11 +31,12 @@ export default defineConfig({
           enabledCollections: ['ep'],
         }),
         ElementPlusResolver({importStyle: "sass",}), 
+        
       ],
     }),
     Icons({
       autoInstall: true,
-    }),
+    }), 
   ],
   resolve: {
     alias: {

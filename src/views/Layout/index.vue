@@ -13,6 +13,7 @@ import {
 import { useIndexStore } from "@/stores/index";
 const indexstore = useIndexStore();
 const { bgmusic,  y } = storeToRefs(indexstore);
+
 </script>
 
  

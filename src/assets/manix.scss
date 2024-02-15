@@ -1,0 +1,57 @@
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a{
+    text-decoration: none;
+  }
+  p{
+    font-weight: 400;
+      font-size: 16px;
+      line-height: 27px;
+  }
+   
+  .bg-danger { 
+    background-color: $danger;
+    color: $white;
+    &:hover{ 
+      background-color: $primary;
+      color: $white;
+    }
+  }
+  .bg-pink { 
+    background: $pink;
+    color: $black;
+  }
+  .whiteaqua{ 
+    background: $whiteaqua;
+    color: $black;
+  }
+  b{
+    .large-text{
+      font-size: 1.5rem;
+    }
+  }

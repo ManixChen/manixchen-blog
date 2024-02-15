@@ -39,28 +39,3 @@ $purple: rgba(213,102,255,1);
       ),
       )
 );
-a{
-  text-decoration: none;
-}
-p{
-  font-weight: 400;
-    font-size: 16px;
-    line-height: 27px;
-}
- 
-.bg-danger { 
-  background-color: $danger;
-  color: $white;
-  &:hover{ 
-    background-color: $primary;
-    color: $white;
-  }
-}
-.bg-pink { 
-  background: $pink;
-  color: $black;
-}
-.whiteaqua{ 
-  background: $whiteaqua;
-  color: $black;
-}
