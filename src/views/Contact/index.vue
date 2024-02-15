@@ -49,8 +49,8 @@ const rules = reactive({
 });
 
 const submitForm = async (formCotact) => {
-  if (!formCotact){ return false
-  }
+  if (!formCotact)return false;
+
   await formCotact.validate((valid, fields) => {
     if (valid) { 
       ElNotification({
@@ -58,10 +58,19 @@ const submitForm = async (formCotact) => {
         message: "提交成功",
         type: 'success',
       })
-    } else { 
+    } else {  
+      let str = "";
+      for(let key in fields) {
+        if(fields[key]) {
+          for(let k in fields[key]){
+            str += fields[key][k].message + "<br/>";
+          }
+        }
+      }
       ElNotification({
-        title: 'error submit!',
-        message: fields,
+        title: '信息错误!',
+        dangerouslyUseHTMLString: true,
+        message: str,
         type: 'error',
       })
     }
@@ -139,6 +148,9 @@ const resetForm = (formCotact) => {
             <el-form-item label="Message" prop="message">
               <el-input v-model="contactForm.message" />
             </el-form-item>
+            <br>
+            <br>
+            <br>
             <el-form-item>
               <el-button type="default" @click="submitForm(contactFormRef)">
                 Create
