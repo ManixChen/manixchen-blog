@@ -15,7 +15,7 @@ import SecondTitle from "../Layout/component/SecondTitle.vue";
           <RouterLink to="/works/webdev">WEB</RouterLink>
           <RouterLink to="/works/javadev">JAVA</RouterLink>
           <RouterLink to="/works/phpdev">PHP</RouterLink>
-          <RouterLink to="/works/uidesign">UI</RouterLink>
+          <RouterLink to="/works/uidesign">VUE</RouterLink>
         </div>
       </el-col>
     </el-row>

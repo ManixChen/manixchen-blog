@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-row>
-          <webdev :current="`all`" title="所有相册"/>
+          <webdev :current="`java`" title="所有相册"/>
         </el-row>
     </div>
 </template>
