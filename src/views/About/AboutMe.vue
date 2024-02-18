@@ -29,7 +29,7 @@
             <el-col :sm="24"  >
               <h1 class="title">Personal Info</h1>
             </el-col>
-            <el-col :sm="6" :md="18" :lg="20" >
+            <el-col :sm="6" :md="18" :lg="20" class="about-icon-box">
               <el-row>
                 <el-col :sm="24" :md="12"  > 
                   <div class="icon-info-box">

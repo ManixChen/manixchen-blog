@@ -36,34 +36,45 @@ import WhatIDo from "./WhatIDo.vue";
   line-height: 200px;
   text-align: center;
   color: #FC156A;
-  font-size: 3rem;
+  font-size: 3.5rem;
 }
 
 .icon-info-box{
   margin-right: 15px;
-  padding: 10px;
+  padding: 10px 0;
   border-radius: 15px;
   min-width: 350px;
   .left-icon{
     display:  inline-block;
-    width: 1.8rem;
-    height: 2.5rem;
-    line-height: 2.5rem;
-    text-align: center;
-    font-size: 1.3rem;
     background: transparent;
     border: 1px solid transparent;
     border-radius: 0.3rem;
     color: rgb(233, 59, 129);
+    text-align: center;
   }
 
   .right-text{
     margin-left: 10px;
     display: inline-block;
-    font-size: 1rem;
+    font-size: 1.8rem;
     div{
       padding-bottom: 5px;
       opacity: 0.6;
+    }
+  }
+}
+
+.about-icon-box .icon-info-box  .left-icon{
+  i{
+    font-size: 3rem; 
+    padding: 0.4rem 0.2rem;
+    border-radius: 0.2rem;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid #e5e5e5;
+    margin-top: 0.8rem;
+    &:hover{ 
+    background: #e5e5e5;
+    border: 1px solid #dddddd;
     }
   }
 }
@@ -75,18 +86,22 @@ import WhatIDo from "./WhatIDo.vue";
     color: rgba(213,102,255,1);
   }
   .left-icon{ 
-    width: 60px;
-    font-size: 3.6rem;
     vertical-align: top;
+    margin-top: 0px;
     background: none;
     border-color: transparent transparent transparent;
+    i{
+      
+    font-size: 5rem;
+    }
   }
 
   .right-text{ 
     max-width: 70%;
+    font-size: 1.6rem;
     strong{
       padding-top: 10px;
-      font-size: 1.2rem;
+      font-size: 2.2rem;
     }
     p{ 
       opacity: 0.6;

@@ -11,3 +11,13 @@ import SillsKnowledge from './component/SillsKnowledge.vue';
         <SillsKnowledge/>
     </div>
 </template>
+
+<style lang="scss">
+
+.el-collapse-item__header{
+    font-weight: 400;
+      line-height: 2.7px;
+      font-size: 1.6rem;
+  }
+
+</style>

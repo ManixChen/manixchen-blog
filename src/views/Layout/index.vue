@@ -52,7 +52,9 @@ const { bgmusic,  y } = storeToRefs(indexstore);
     <!-- 二级路由出口 -->
     <div class="main-container">
       <RouterView />
-      <h5 class="footer-copyright">© 2024 All Rights Reserved by Manixchens</h5>
+      <div class="footer-copyright">
+        © 2024 All Rights Reserved by Manixchens use Vue3 and elementplus
+      </div>
     </div>
     
 
@@ -77,7 +79,7 @@ body {
   }
 }
 .btn-drop-menu {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   height: 45px;
   width: 45px;
   border-radius: 50%;
@@ -199,7 +201,7 @@ header {
   width: 100%;
   text-align: center;
   margin-top: 60px;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   color: rgba(0, 0, 0, 0.3);
 }
 

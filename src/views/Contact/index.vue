@@ -158,7 +158,7 @@ const resetForm = (formCotact) => {
               <el-button  type="default" @click="resetForm(contactFormRef)">Reset</el-button>
             </el-form-item>
           </el-form>
-        </div>
+        </div> 
       </el-col>
     </el-row>
   </div>
