@@ -33,9 +33,8 @@ const { bgmusic,  y } = storeToRefs(indexstore);
         <RouterLink to="/works"
           ><el-icon><Reading /></el-icon>Works</RouterLink
         >
-        <RouterLink to="/blogs"
-          ><el-icon><View /></el-icon>Blogs</RouterLink
-        >
+        <!-- <RouterLink to="/blogs" ><el-icon><View /></el-icon>Blogs</RouterLink  > -->
+          <a href="https://manixchen.github.io/" target="_blank"><el-icon><View /></el-icon>Blogs</a>
         <RouterLink to="/contact"
           ><el-icon><ChatDotSquare /></el-icon>Contact</RouterLink
         >

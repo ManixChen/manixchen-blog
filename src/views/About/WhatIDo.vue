@@ -20,8 +20,8 @@
                 2、JavaScript ES5和ES6  <br>
                 3、JQuery(Ajax、UI、Form、Mobile)<br> 
                 4、Bootstrap5、4、3、2 、Layui <br> 
-                5、MVMM(VUE3全家桶) ElementPlus、Vue Argon、Primevue <br> 
-                6、了解React，熟练使用 BulMa CSS、vant、AntDesign
+                5、熟练掌握VUE3,VUE2 ElementPlus、Vue Argon、Primevue <br> 
+                6、了解React，熟练使用 BulMa CSS、vant、AntDesign,Liquid,
               </p>
             </div>
           </div>

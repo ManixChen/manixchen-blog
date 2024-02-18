@@ -1,9 +1,10 @@
 <script setup>
+import logoCircle from"/src/assets/manix2.jpg"
 // import { testAPI } from "@/api/testApi";
 // // 测试天气接口
 // testAPI().then((res) => {
 //   console.warn(res);
-// });
+// }); 
 </script>
 
 <style lang="scss" scoped>
@@ -46,7 +47,7 @@ main{
   <main>
     <div class="just-center">
       <div>
-        <el-avatar class="icon-avtor"  src="/src/assets/manix2.jpg" lazy />
+        <el-avatar class="icon-avtor"    :src="logoCircle" lazy />
       </div> 
     </div>
     
@@ -77,7 +78,7 @@ main{
           <br>
           <br>
           <el-button type="danger" round class="btn-large">
-            <a target="new" href="../../../public/resume_web.pdf">Download Cv</a></el-button>
+            <a target="new" href="/public/resume_web.pdf">Download Cv</a></el-button>
         </div>
       </el-col>
     </el-row> 
