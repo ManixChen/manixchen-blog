@@ -2,12 +2,13 @@
  import {
   Iphone, Location,Calendar,ChatLineRound,Loading
 } from "@element-plus/icons-vue";
+import manix1 from "/src/assets/manix1.png";
 </script>
 <template>
     <el-row  > 
         <el-col  :sm="24" :md="12" :lg="8">
           <div class="left-img"> 
-            <el-image  src="/src/assets/manix1.jpg" lazy  fit="cover">
+            <el-image  :src="manix1" lazy  fit="cover">
               <template #error>
                 <div class="image-slot">
                   <el-icon><Loading /></el-icon>
@@ -36,7 +37,7 @@
                     <div class="left-icon"><el-icon><Iphone /></el-icon></div>
                     <div class="right-text">
                       <div>Phone</div>
-                      <strong>+86 17822437524</strong>
+                      <strong>+86 178224375**</strong>
                     </div>
                   </div>
                 </el-col> 
@@ -63,7 +64,7 @@
                     <div class="left-icon"><el-icon><Calendar /></el-icon></div>
                     <div class="right-text">
                       <div>Birthday</div>
-                      <strong>JAN 01,1995</strong>
+                      <strong>JAN 01,^_^_^</strong>
                     </div>
                   </div>
                 </el-col>

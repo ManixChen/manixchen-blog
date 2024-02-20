@@ -4,7 +4,7 @@
     <!--About Me  -->
     <AboutMe />
     
-    <!-- What I do -->
+    <!-- What I do --> 
     <WhatIDo/>
 
     <!-- 去过的公司 -->
@@ -49,6 +49,7 @@ import WhatIDo from "./WhatIDo.vue";
     background: transparent;
     border: 1px solid transparent;
     border-radius: 0.3rem;
+    margin: 0.8rem 1rem 0 0;
     color: rgb(233, 59, 129);
     text-align: center;
   }
@@ -66,7 +67,7 @@ import WhatIDo from "./WhatIDo.vue";
 
 .about-icon-box .icon-info-box  .left-icon{
   i{
-    font-size: 3rem; 
+    font-size: 3.1rem; 
     padding: 0.4rem 0.2rem;
     border-radius: 0.2rem;
     background: rgba(255,255,255,0.6);

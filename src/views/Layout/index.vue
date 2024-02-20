@@ -11,6 +11,8 @@ import {
   Headset,Top
 } from "@element-plus/icons-vue";
 import { useIndexStore } from "@/stores/index";
+import logo from"/public/logo.png"
+import logoWhite from"/public/logo-white.png"
 const indexstore = useIndexStore();
 const { bgmusic,  y } = storeToRefs(indexstore);
 
@@ -21,7 +23,7 @@ const { bgmusic,  y } = storeToRefs(indexstore);
   <div class="router-conter bg-pink-img">
     <header :class="{ fixedTop: y > 150 }">
       <nav class="just-center">
-        <img  :src="y>60?'/public/logo-white.png':'/public/logo.png'" alt="">
+        <img  :src="y>60?logoWhite:logo" alt="">
         <RouterLink to="/home"     ><el-icon><House /></el-icon>Home</RouterLink
         >
         <RouterLink to="/about"
@@ -54,6 +56,8 @@ const { bgmusic,  y } = storeToRefs(indexstore);
       <div class="footer-copyright">
         © 2024 All Rights Reserved by Manixchens use Vue3 and elementplus
       </div>
+      
+      <img style="display: none;"  :src="y>60?logo:logoWhite" alt="">
     </div>
     
 

@@ -1,6 +1,7 @@
 <script setup> 
 import SecondTitle from '../Layout/component/SecondTitle.vue';
 import SillsKnowledge from './component/SillsKnowledge.vue';
+import Education from  "./component/Education.vue"
 </script>
 
 
@@ -9,6 +10,8 @@ import SillsKnowledge from './component/SillsKnowledge.vue';
         <SecondTitle :title="`Resume`"/>
         <!-- 技能技术 -->
         <SillsKnowledge/>
+        <!-- 教育经历 -->
+        <Education/>
     </div>
 </template>
 

@@ -62,7 +62,8 @@ onMounted(() => {
     border-radius: 25px;
     text-align: center;
     margin-bottom: 25px; 
-    display: block;
+    display: block; 
+    padding: 10px;
     .el-image {
       display: block;
       width: 90%;

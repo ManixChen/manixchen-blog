@@ -1,5 +1,5 @@
 <script setup>
-import logoCircle from"/src/assets/manix2.jpg"
+import logoCircle from"/src/assets/manix2.png"
 // import { testAPI } from "@/api/testApi";
 // // 测试天气接口
 // testAPI().then((res) => {
