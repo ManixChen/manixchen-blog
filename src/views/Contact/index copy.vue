@@ -1,47 +1,15 @@
 <script setup>
-import { nextTick,reactive, ref ,onMounted} from "vue";  
-import Gitalk from "gitalk";
+import { reactive, ref ,onMounted} from "vue";  
 import { Location, Iphone, Promotion } from "@element-plus/icons-vue";
 import { ElNotification } from 'element-plus'
-import "gitalk/dist/gitalk.css";
 
 import SecondTitle from "../Layout/component/SecondTitle.vue";
-const initialSuccess = ref(true);
-onMounted(() => {  
 
-  const gitalk = new Gitalk({
-    clientID: "f7c5d9acf154e373d8eb",
-    clientSecret: "475dbefe630689c0e3cf2de79bd74751fd014d9c",
-    repo: "blog_content", // The repository of store comments,
-    owner: "manixchen",
-    admin: ["manixchen"],
-    id: location.pathname, // Ensure uniqueness and length less than 50
-    distractionFreeMode: false, // Facebook-like distraction free mode
-  });
-
-    // 写法一
-  const promise = new Promise(function(resolve, reject) {
-    try {
-        nextTick(function () {
-            gitalk.render("gitalk-container");
-          });
-      throw new Error('gitalk init error');
-    } catch(e) {
-      initialSuccess.value =false;
-      reject(e);
-    }
-  });
-  promise.catch(function(error) {
-      initialSuccess.value =false; 
-      ElNotification({
-        title: '信息错误!',
-        dangerouslyUseHTMLString: true,
-        message: error,
-        type: 'error',
-        duration:60001,
-      })
-  });
-
+onMounted(() => {
+    
+  // 在你的 setup 方法中
+  // const { appContext } = getCurrentInstance()!
+  // ElNotification({}, appContext)
 
 })
 const  contactFormRef =ref();
@@ -88,7 +56,7 @@ const submitForm = async (formCotact) => {
       ElNotification({
         title: 'submit!',
         message: "提交成功",
-        type: 'success', 
+        type: 'success',
       })
     } else {  
       let str = "";
@@ -104,7 +72,6 @@ const submitForm = async (formCotact) => {
         dangerouslyUseHTMLString: true,
         message: str,
         type: 'error',
-        duration:60001,
       })
     }
   })
@@ -157,10 +124,7 @@ const resetForm = (formCotact) => {
 
       <!-- 右侧邮件 -->
       <el-col :sm="23" :md="15" :offset="1">
-
-        <div v-show="initialSuccess" class="blog_content_container" id="gitalk-container"></div>
-
-        <div v-show="!initialSuccess" class="contact-form">
+        <div class="contact-form">
           <el-text class="large-text" tag="b" size="large">
             I'm Always Open To Discussing Produuct design work or
             partnerships.</el-text
@@ -189,7 +153,7 @@ const resetForm = (formCotact) => {
             <br>
             <el-form-item>
               <el-button type="default" @click="submitForm(contactFormRef)">
-                Commit
+                Create
               </el-button>
               <el-button  type="default" @click="resetForm(contactFormRef)">Reset</el-button>
             </el-form-item>
@@ -201,19 +165,6 @@ const resetForm = (formCotact) => {
 </template>
 
 <style lang="scss">
-.blog_content_container {
-  min-height: 300px;
-  width: 100%; 
-  margin: 0 auto;
-}
-.blog_content_container .gt-header-comment  .gt-header-textarea{
-  border: 1px solid #303030;
-  background-color:transparent;
-  
-  min-height: 7.125em;
-  max-height: 15em;
-}
-
 .dager-color {
   color: $danger;
 }
@@ -271,22 +222,5 @@ const resetForm = (formCotact) => {
       }
     }
   }
-}
-.el-notification{
-  position: fixed;
-  display: flex;
-  top: 20px;
-  right:  50px;
-  background: rgba(255,255,255,0.9);
-  padding:10px 25px;
-  border-radius: 10px;
-}
-.el-notification .el-notification__group h2{ 
-  margin: -8px 0 0 15px;
-} 
-.el-notification .el-notification__group .el-notification__closeBtn{ 
-  position: absolute;
-  right: 20px;
-  top: 15px;
 }
 </style>

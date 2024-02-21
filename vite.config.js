@@ -38,9 +38,8 @@ export default defineConfig({
       autoInstall: true,
     }), 
   ],
-  base: '/manix/',
-  //静态资源服务的文件夹
-  publicDir: "manix", 
+  base: '/manix/',//远程部署哪个目录就配置啥，如果是根目录就为空，或者不配 
+  publicDir: "/manix/", //静态资源服务的文件夹
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
@@ -70,5 +69,44 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, "/api"), //重写真实路径,替换/api
       }
     } 
-  }
+  },
+  //打包配置
+ build: { 
+  // target: "modules", //浏览器兼容性  "esnext"|"modules" 
+  // outDir: "dist",//指定输出路径 
+  // assetsDir: "assets",//生成静态资源的存放路径 
+  assetsInlineLimit: 4096, //小于此阈值的导入或引用资源将内联为 base64 编码，以避免额外的 http 请求。设置为 0 可以完全禁用此项 
+  // cssCodeSplit: true, //启用/禁用 CSS 代码拆分
+  // sourcemap: false,//构建后是否生成 source map 文件
+  // rollupOptions: {//自定义底层的 Rollup 打包配置
+  // },
+  // commonjsOptions: {//@rollup/plugin-commonjs 插件的选项
+  // },
+  // lib: { //构建的库
+  // },
+  // manifest: false,//当设置为 true，构建后将会生成 manifest.json 文件
+  // // 设置为 false 可以禁用最小化混淆，
+  // // 或是用来指定使用哪种混淆器
+  // // boolean | 'terser' | 'esbuild'
+  // minify: "terser", //terser 构建后文件体积更小
+  //传递给 Terser 的更多 minify 选项。
+  terserOptions: {
+    compress:{
+      drop_console: true,//移除所有console
+      drop_debugger: true
+    }
+  },  
+  // write: true,//设置为 false 来禁用将构建后的文件写入磁盘
+  // //默认情况下，若 outDir 在 root 目录下，则 Vite 会在构建时清空该目录。
+  // emptyOutDir: true, 
+  brotliSize: true, //启用/禁用 brotli 压缩大小报告
+  chunkSizeWarningLimit: 1500 //chunk 大小警告的限制
+ },
+//  ssr: {
+//   // 列出的是要为 SSR 强制外部化的依赖
+//   external: [],
+//   //列出的是防止被 SSR 外部化依赖项
+//   noExternal: [
+//   ]
+//  } 
 });

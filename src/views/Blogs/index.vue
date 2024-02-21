@@ -74,12 +74,6 @@ onMounted(() => {
 
 
 <style>
-.blog_content_container {
-  height: 300px;
-  width: 800px;
-  border-radius: 1px solid #303030;
-}
-
 .manix-box {
   min-height: 300px;
   width: 600px;

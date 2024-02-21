@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory,createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Layout from "../views/Layout/index.vue";
 import Home from "../views/Home/index.vue";
 import LoginView from "../views/Login/index.vue";
@@ -12,8 +12,7 @@ const router = createRouter({
   linkActiveClass: 'active', 
   // mode: 'history',
   // history: createWebHistory(import.meta.env.BASE_URL),
-  history:  createWebHashHistory(import.meta.env.BASE_URL),
-  base: '/manix/',
+  history:  createWebHashHistory(import.meta.env.BASE_URL), 
   routes: [
     {
       path:'/',

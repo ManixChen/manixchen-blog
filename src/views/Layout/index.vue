@@ -30,13 +30,11 @@ const { bgmusic,  y } = storeToRefs(indexstore);
           ><el-icon><User /></el-icon>About</RouterLink
         >
         <RouterLink to="/resume"
-          ><el-icon><Document /></el-icon>Resume</RouterLink
-        >
-        <RouterLink to="/works"
-          ><el-icon><Reading /></el-icon>Works</RouterLink
-        >
+          ><el-icon><Document /></el-icon>Resume</RouterLink  >
+          <!-- 暂时用于blog场景的不需要公司信息 -->
+        <!-- <RouterLink to="/works" ><el-icon><Reading /></el-icon>Works</RouterLink > -->
         <!-- <RouterLink to="/blogs" ><el-icon><View /></el-icon>Blogs</RouterLink  > -->
-          <a href="https://manixchen.github.io/" target="_blank"><el-icon><View /></el-icon>Blogs</a>
+          <a href="https://manixchen.github.io/category/" target="_blank"><el-icon><View /></el-icon>Blogs</a> 
         <RouterLink to="/contact"
           ><el-icon><ChatDotSquare /></el-icon>Contact</RouterLink
         >
