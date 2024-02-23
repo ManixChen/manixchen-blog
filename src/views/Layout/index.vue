@@ -5,7 +5,6 @@ import {
   User,
   House,
   Document,
-  Reading,
   View,
   ChatDotSquare,
   Headset,Top
@@ -15,7 +14,7 @@ import logo from"/public/logo.png"
 import logoWhite from"/public/logo-white.png"
 const indexstore = useIndexStore();
 const { bgmusic,  y } = storeToRefs(indexstore);
-
+// computed(()=>bgmusic)
 </script>
 
  
@@ -40,9 +39,9 @@ const { bgmusic,  y } = storeToRefs(indexstore);
         >
         <RouterLink to="/login">Login</RouterLink>
       </nav>
-      <span id="musicBg" @click="indexstore.playAudio(bgmusic)">
+      <span id="musicBg" @click="indexstore.playAudio">
         <el-icon><Headset /></el-icon>
-        <audio ref="bgmusic" v-show="false">
+        <audio ref="bgmusic"  v-show="false">
           <source src="../../assets/music/miss.m4a" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>

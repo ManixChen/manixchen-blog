@@ -1,12 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Layout from "../views/Layout/index.vue";
-import Home from "../views/Home/index.vue";
-import LoginView from "../views/Login/index.vue";
-import Resume from "../views/Resume/index.vue";
-import Works from "../views/Works/index.vue";
-import Blogs from "../views/Blogs/index.vue";
-import Contact from "../views/Contact/index.vue";
-import AllWorks from "../views/Works/AllWorks.vue";
+// import Home from "../views/Home/index.vue";
+// import LoginView from "../views/Login/index.vue";
+// import Resume from "../views/Resume/index.vue";
+// import Works from "../views/Works/index.vue";
+// import Blogs from "../views/Blogs/index.vue";
+// import AllWorks from "../views/Works/AllWorks.vue";
  
 const router = createRouter({
   linkActiveClass: 'active', 
@@ -23,7 +22,7 @@ const router = createRouter({
         {
           path: "/home",
           name: "home",
-          component: Home,
+          component: () => import("../views/Home/index.vue") ,
           meta: {
             title: "首页"
           }
@@ -36,18 +35,18 @@ const router = createRouter({
         {
           path: "/resume",
           name: "resume",
-          component: Resume,
+          component:  () => import("../views/Resume/index.vue"), 
         },
         {
           path: "/works",
           name: "works",
-          component: Works,
+          component: () => import("../views/Works/index.vue") ,
           redirect: '/works/allworks',
           children:[
             { 
               path: "/works/allworks", ///works/allworks
               name: "allworks",
-              component: AllWorks
+              component: () => import("../views/Works/AllWorks.vue") 
             },
             { 
               path: "/works/webdev", 
@@ -74,19 +73,19 @@ const router = createRouter({
         {
           path: "/blogs",
           name: "blogs",
-          component: Blogs,
+          component: () => import("../views/Blogs/index.vue") 
         },
         {
           path: "/contact",
           name: "contact",
-          component: Contact,
+          component: () => import("../views/Contact/index.vue") 
         },
       ]
     },
     {
       path: "/login",
-      name: "Login",
-      component: LoginView,
+      name: "Login", 
+      component: () => import("../views/Login/index.vue") 
     },
   ],
 });

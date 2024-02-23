@@ -9,38 +9,40 @@ import SecondTitle from "../Layout/component/SecondTitle.vue";
 const initialSuccess = ref(true);
 onMounted(() => {  
 
-  const gitalk = new Gitalk({
-    clientID: "f7c5d9acf154e373d8eb",
-    clientSecret: "475dbefe630689c0e3cf2de79bd74751fd014d9c",
-    repo: "blog_content", // The repository of store comments,
-    owner: "manixchen",
-    admin: ["manixchen"],
-    id: location.pathname, // Ensure uniqueness and length less than 50
-    distractionFreeMode: false, // Facebook-like distraction free mode
-  });
 
+  nextTick(function () {
     // 写法一
-  const promise = new Promise(function(resolve, reject) {
-    try {
-        nextTick(function () {
-            gitalk.render("gitalk-container");
+    const promise = new Promise(function(resolve, reject) {
+      try { 
+          const gitalk = new Gitalk({ 
+            clientID: 'f7c5d9acf154e373d8eb',
+                      clientSecret: '7ecf0b089f43335e1ed5dd8d2a6f375f6695aa11',
+                      repo: 'gitalk-blog',      // The repository of store comments,
+                      owner: 'manixchen',
+                      admin: ['manixchen'],
+            id: location.pathname, // Ensure uniqueness and length less than 50
+            distractionFreeMode: false, // Facebook-like distraction free mode
           });
-      throw new Error('gitalk init error');
-    } catch(e) {
-      initialSuccess.value =false;
-      reject(e);
-    }
+        gitalk.render("gitalk-container");
+        initialSuccess.value =true;
+        // throw new Error('gitalk init error');
+      } catch(e) {
+        initialSuccess.value =false;
+        reject(e);
+      }
+    });
+    promise.catch(function(error) {
+        initialSuccess.value =false; 
+        ElNotification({
+          title: '信息错误!',
+          dangerouslyUseHTMLString: true,
+          message: error,
+          type: 'error',
+          duration:60001,
+        })
+    });
   });
-  promise.catch(function(error) {
-      initialSuccess.value =false; 
-      ElNotification({
-        title: '信息错误!',
-        dangerouslyUseHTMLString: true,
-        message: error,
-        type: 'error',
-        duration:60001,
-      })
-  });
+    
 
 
 })
