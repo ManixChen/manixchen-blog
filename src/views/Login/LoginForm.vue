@@ -1,100 +1,129 @@
-<style>
-body{
-    height: 100%;
-    overflow-y: auto;
-}
-</style>
-<template> 
-  <div>
-     <div>
-  <!--    输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] +
-      nums[1] == 9 ，返回 [0, 1] 。
-    </div>
-    <hr /> 
-    <div ref="">
-      <h4>nums = {{ arr }}, target = {{target}}</h4>
-      <h4>输出：下标</h4>
-      <hr /> -->
-      <!-- <h3>
-        {{newArr}}
-      </h3> -->
-      <!-- <p v-for="(item,key) in 100" :key="key">{{key+":" +item}}</p> -->
-    </div>
+
+<template>
+  <div class="login-form">
+    <header>
+      <div>
+        <el-icon><HomeFilled /></el-icon>
+      </div>
+      <div>LOGIN</div>
+    </header>
+    <section>
+      <el-form
+        class="loginForm"
+        ref="contactFormRef"
+        :rules="rules"
+        :model="contactForm"
+        label-position="top"
+        labelSuffix=""
+        requireAsteriskPosition="right"
+        label-width="200px"
+      >
+        <el-form-item prop="name">
+          <el-input v-model="contactForm.name" placeholder="User Name" />
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="contactForm.password" placeholder="Password" />
+        </el-form-item>
+        <div class="rember">
+          <el-checkbox
+            v-model="contactForm.rember"
+            label="Remember me"
+            name="type"
+          />
+          <a href="javascript:void(0)" class="pull-right"
+            >Forgot your password ?</a
+          >
+        </div>
+        <div class="action-footer vertical-align-center">
+          <el-button
+            size="large"
+            type="primary"
+            round
+            class="login-circle"
+            @click="submitForm(contactFormRef)"
+          >
+            Commit
+          </el-button>
+        </div>
+        <div class="action-footer action-bottom">
+          New to Tomillo? 
+          <a @click="whetherRegister" href="javascript:void(0)">Sign Up</a>
+        </div>
+      </el-form>
+    </section>
+    <footer></footer>
   </div>
 </template>
 
-
-<script>
-export default {
-  data:() => {
-    return{
-        isAdgust: true,
-        arr: [],
-        target: 0,
-        newArr: [],
-    }
-  },
-  methods: {
-    checkIndex: function (arr, target) {
-        this.arr = arr;
-        this.target = target;
-        this.newArr = [];
-        for(let i = 0; i < arr.length; i++){
-            for(let j = 1;j<=arr.length;j++){
-                if(arr[i]+arr[j]===target){
-                    this.newArr.push([i,j]);
-                }
-            }
-        }
-      this.isAdgust = false;
-      console.warn(this.newArr);
+<script setup>
+import { reactive, ref } from "vue";
+import { ElNotification } from "element-plus";
+import { HomeFilled } from "@element-plus/icons-vue";
+defineProps({
+  whetherRegister: Function,
+})
+const contactFormRef = ref();
+const contactForm = reactive({
+  name: "",
+  email: "",
+  message: "",
+});
+const rules = reactive({
+  name: [
+    // required是否必填,message不符合此规则时的提示信息,
+    // trigger触发此条规则校验的时机，有两个值, blur 或 change,默认就是blur和change都会进行校验
+    // min此字段的最小长度，max此字段的最大长度
+    // pattern 正则表达式
+    { required: true, message: "账户不能为空", trigger: "blur" },
+    { min: 6, max: 14, message: "用户长度不要超过14位，最短6位" },
+  ],
+  password: [
+    {
+      required: true,
+      message: "Please input password",
+      trigger: "blur",
     },
-    listenWheel:function (){
-        const element = window; 
-        element.addEventListener('wheel', function(event) {
-        // event.deltaY 的值为正时，表示向下滚动
-        // event.deltaY 的值为负时，表示向上滚动
-        if (event.deltaY < 0) {
-            console.log(element.__proto__);
-            console.log(window.scrollY);
-            console.log('滚轮向上滚动'+element.scrollTop);
-        } else if (event.deltaY > 0) {
-            console.log('滚轮向下滚动');
-        }
-        }); 
-    }
-  },
+    {
+      type: "password",
+      message: "Please input correct password",
+      trigger: ["blur", "change"],
+    },
+  ],
+  rember: [],
+});
 
-  beforeCreate() {
-    console.log("子组件————beforeCreate...");
-  },
-  created() {
-    console.log("子组件————create...");
-  },
-  beforeMount() {
-    console.log("子组件————beforeMount...");
-  },
-  mounted() {
-    console.log("子组件————mounted...");
-    /**
-             * 
-            输入：nums = [2,7,11,15], target = 9
-            输出：[0,1]
-            解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。*/
-    this.checkIndex([2, 3, 5, 6, 7, 4, 5, 6, 9], 8);
-    this.listenWheel();
-  },
-  beforeUpdate() {
-    console.log("子组件————beforeUpdate...");
-  },
-  updated() {
-    console.log("子组件————updated...");
-  },
-  beforeUnmount() {
-    console.log("子组件————beforeUnmount...");
-  },
-  unmounted() {
-    console.log("子组件————unmounted...");
-  },
+const submitForm = async (formCotact) => {
+  if (!formCotact) return false;
+
+  await formCotact.validate((valid, fields) => {
+    if (valid) {
+      ElNotification({
+        title: "submit!",
+        message: "提交成功",
+        type: "success",
+      });
+    } else {
+      let str = "";
+      for (let key in fields) {
+        if (fields[key]) {
+          for (let k in fields[key]) {
+            str += fields[key][k].message + "<br/>";
+          }
+        }
+      }
+      ElNotification({
+        title: "信息错误!",
+        dangerouslyUseHTMLString: true,
+        message: str,
+        type: "error",
+        duration: 60001,
+      });
+    }
+  });
 };
+
+
+
 </script>
+
+<style lang="scss" src="./formbox.scss" scoped></style>

@@ -3,7 +3,10 @@ import "./assets/manix.scss"
 import 'element-plus/theme-chalk/display.css'
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import 'element-plus/es/components/message/style/css' 
+import 'element-plus/es/components/notification/style/css' 
 import { ElNotification,ElMessage } from 'element-plus'
+
 
 import App from "./App.vue";
 import router from "./router";

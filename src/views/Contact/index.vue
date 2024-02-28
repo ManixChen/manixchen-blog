@@ -7,9 +7,14 @@ import "gitalk/dist/gitalk.css";
 
 import SecondTitle from "../Layout/component/SecondTitle.vue";
 const initialSuccess = ref(true);
-onMounted(() => {  
-
-
+onMounted(() => {   
+  // ElNotification({
+  //       title: '信息错误!',
+  //       dangerouslyUseHTMLString: true,
+  //       message: "test success",
+  //       type: 'success',
+  //       duration:4000,
+  //     })
   nextTick(function () {
     // 写法一
     const promise = new Promise(function(resolve, reject) {
@@ -273,22 +278,5 @@ const resetForm = (formCotact) => {
       }
     }
   }
-}
-.el-notification{
-  position: fixed;
-  display: flex;
-  top: 20px;
-  right:  50px;
-  background: rgba(255,255,255,0.9);
-  padding:10px 25px;
-  border-radius: 10px;
-}
-.el-notification .el-notification__group h2{ 
-  margin: -8px 0 0 15px;
 } 
-.el-notification .el-notification__group .el-notification__closeBtn{ 
-  position: absolute;
-  right: 20px;
-  top: 15px;
-}
 </style>

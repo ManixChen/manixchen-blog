@@ -1,0 +1,55 @@
+
+.login-form {
+    width: 480px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+  }
+  header {
+    text-align: center;
+    div {
+      font-size: 2.6rem;
+      font-weight: 500;
+    }
+  }
+  .el-form-item {
+    margin-top: 4rem;
+  }
+  
+  .loginForm a {
+    opacity: 0.4;
+    &:hover {
+      opacity: 8;
+    }
+  }
+  
+  ::v-deep() {
+    .el-form  input,span {
+      font-weight: 400;
+      font-size: 1.8rem;
+    }
+    .el-form .el-input__wrapper {
+      padding: 0;
+      input {
+        height: 5rem;
+        width: 100%;
+        padding: 0 1.4rem;
+        border-radius: 3px;
+        color: #314584;
+        border: none;
+        background: #f4fafe;
+      }
+    }
+  } 
+   
+  
+   .action-footer {
+    text-align: center;
+    padding: 30px;
+    &.action-bottom {
+      padding: 10px;
+    }
+  }
+  button.login-circle {
+    padding: 1.3rem 3rem;
+  }

@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Layout from "../views/Layout/index.vue";
-// import Home from "../views/Home/index.vue";
+import Home from "../views/Home/index.vue";
 // import LoginView from "../views/Login/index.vue";
 // import Resume from "../views/Resume/index.vue";
 // import Works from "../views/Works/index.vue";
@@ -22,7 +22,7 @@ const router = createRouter({
         {
           path: "/home",
           name: "home",
-          component: () => import("../views/Home/index.vue") ,
+          component:Home ,
           meta: {
             title: "首页"
           }

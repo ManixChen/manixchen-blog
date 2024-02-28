@@ -62,7 +62,7 @@ export const useCommonStore = defineStore('common', () => {
   const Knowledges = ref([
     { title: "HTML5", percentage: 95 },
     { title: "ES5", percentage: 85 },
-    { title: "ES6", percentage: 55 },
+    { title: "ES6", percentage: 75 },
     { title: " VUE2", percentage: 70 },
     { title: " ElementPlus", percentage: 90 },
     { title: " Sass、Scss", percentage: 90 },

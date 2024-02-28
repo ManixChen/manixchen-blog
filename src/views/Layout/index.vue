@@ -77,6 +77,7 @@ body {
     display: inline-block;
     clear: both;
   }
+  margin: 0;
 }
 .btn-drop-menu {
   font-size: 1.8rem;

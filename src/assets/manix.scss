@@ -1,6 +1,7 @@
-html{
-  
+$input-text-color:#314584;
+html{ 
   font-size: 62.5%;
+  color: $black;
 }
 body {
   min-height: 100vh;
@@ -63,4 +64,12 @@ a{
     font-size: 1.6rem;
   }
 
-  
+  .pull-right{
+    float: right;
+  }
+
+  .vertical-align-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
