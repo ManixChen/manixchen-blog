@@ -6,14 +6,14 @@ import {
   House,
   Document,
   View,
-  ChatDotSquare,
-  Headset,Top
+  ChatDotSquare, 
+  Headset,Top,Promotion,Reading
 } from "@element-plus/icons-vue";
 import { useIndexStore } from "@/stores/index";
 import logo from"/public/logo.png"
 import logoWhite from"/public/logo-white.png"
 const indexstore = useIndexStore();
-const { bgmusic,  y } = storeToRefs(indexstore);
+const { bgmusic,  y ,isLoging} = storeToRefs(indexstore); 
 // computed(()=>bgmusic)
 </script>
 
@@ -31,18 +31,19 @@ const { bgmusic,  y } = storeToRefs(indexstore);
         <RouterLink to="/resume"
           ><el-icon><Document /></el-icon>Resume</RouterLink  >
           <!-- 暂时用于blog场景的不需要公司信息 -->
-        <!-- <RouterLink to="/works" ><el-icon><Reading /></el-icon>Works</RouterLink > -->
+        <RouterLink to="/works" ><el-icon><Reading /></el-icon>Works</RouterLink >
         <!-- <RouterLink to="/blogs" ><el-icon><View /></el-icon>Blogs</RouterLink  > -->
           <a href="https://manixchen.github.io/category/" target="_blank"><el-icon><View /></el-icon>Blogs</a> 
         <RouterLink to="/contact"
           ><el-icon><ChatDotSquare /></el-icon>Contact</RouterLink
         >
-        <RouterLink to="/login">Login</RouterLink>
+        <RouterLink v-if="!isLoging" to="/login">Login</RouterLink> 
+        <a href="javascript:void(0)" @click="indexstore.logoutPage" v-if="isLoging" ><el-icon><Promotion /></el-icon>LogOut</a> 
       </nav>
       <span id="musicBg" @click="indexstore.playAudio">
         <el-icon><Headset /></el-icon>
         <audio ref="bgmusic"  v-show="false">
-          <source src="../../assets/music/miss.m4a" type="audio/mpeg" />
+          <source src="../../assets/music/schbmg.mp3" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
       </span>

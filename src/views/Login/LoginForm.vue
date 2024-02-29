@@ -1,11 +1,15 @@
-
 <template>
   <div class="login-form">
+    <span @click="changeLang" id="change-lang">
+      <b v-if="locale == 'en-us'">中</b>
+      <b v-if="locale == 'zh-cn'">ENG</b>
+      <el-icon v-show="false"><DocumentCopy /></el-icon>
+    </span>
     <header>
       <div>
-        <el-icon><HomeFilled /></el-icon>
+        <el-icon @click="showTour"><HomeFilled /></el-icon>
       </div>
-      <div>LOGIN</div>
+      <div>Login</div>
     </header>
     <section>
       <el-form
@@ -19,20 +23,28 @@
         label-width="200px"
       >
         <el-form-item prop="name">
-          <el-input v-model="contactForm.name" placeholder="User Name" />
+          <el-input
+            id="name"
+            v-model="contactForm.name"
+            :placeholder="$t('login.UserName')"
+          />
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="contactForm.password" placeholder="Password" />
+          <el-input
+            type="password"
+            v-model="contactForm.password"
+            :placeholder="$t('login.Password')"
+          />
         </el-form-item>
         <div class="rember">
           <el-checkbox
             v-model="contactForm.rember"
-            label="Remember me"
+            :label="$t('login.RememberMe')"
             name="type"
           />
-          <a href="javascript:void(0)" class="pull-right"
-            >Forgot your password ?</a
-          >
+          <a href="javascript:void(0)" class="pull-right">{{
+            $t("login.ForgotPassword")
+          }}</a>
         </div>
         <div class="action-footer vertical-align-center">
           <el-button
@@ -42,66 +54,97 @@
             class="login-circle"
             @click="submitForm(contactFormRef)"
           >
-            Commit
+            {{ $t("login.name") }}
           </el-button>
         </div>
         <div class="action-footer action-bottom">
-          New to Tomillo? 
-          <a @click="whetherRegister" href="javascript:void(0)">Sign Up</a>
+          {{ $t("login.NewTomillo") }}
+          <a @click="whetherRegister" id="signup" href="javascript:void(0)">{{
+            $t("login.SignUp")
+          }}</a>
         </div>
+        <div></div>
       </el-form>
     </section>
-    <footer></footer>
+
+    <!-- 登录多语言切换向导 -->
+    <el-tour v-model="loginLangTour" :finish="finishedTour">
+      <el-tour-step
+        target="#change-lang"
+        title="切换语言"
+        description="Hi小主，这里支持中英文切换哦，请不要迷路……"
+      />
+      <el-tour-step
+        target="#name"
+        title="输入账号登录"
+        description="请输入您的账号进行登录"
+      />
+      <el-tour-step
+        target="#signup"
+        title="这里注册"
+        description="如果第一次来到我的个人博客请先注册哦"
+      />
+    </el-tour>
   </div>
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { nextTick, onMounted, reactive, ref } from "vue";
+import router from "@/router";
 import { ElNotification } from "element-plus";
-import { HomeFilled } from "@element-plus/icons-vue";
+import { HomeFilled, DocumentCopy } from "@element-plus/icons-vue";
+import storage from "@/utils/storage";
+// 多语言切换
+import { useI18n } from "vue-i18n";
+const { locale, t } = useI18n();
+// 向导
+const loginLangTour = ref(false);
+// const name = ref()
+// const signup = ref()
+
 defineProps({
   whetherRegister: Function,
-})
+});
+
+// 登录表单
 const contactFormRef = ref();
+// 表单默认值
 const contactForm = reactive({
   name: "",
-  email: "",
-  message: "",
+  password: "",
+  rember: false,
 });
+// 登录校验规则
 const rules = reactive({
   name: [
-    // required是否必填,message不符合此规则时的提示信息,
-    // trigger触发此条规则校验的时机，有两个值, blur 或 change,默认就是blur和change都会进行校验
-    // min此字段的最小长度，max此字段的最大长度
-    // pattern 正则表达式
-    { required: true, message: "账户不能为空", trigger: "blur" },
-    { min: 6, max: 14, message: "用户长度不要超过14位，最短6位" },
+    { required: true, message: t("login.AccountCannotEmpty"), trigger: "blur" },
+    { min: 4, message: t("login.MinUserinfo") },
+    { max: 12, message: t("login.MaxUserinfo") },
   ],
   password: [
     {
       required: true,
-      message: "Please input password",
+      message: t("login.NeedPassword"),
       trigger: "blur",
     },
+    { min: 6, message: t("login.PasswordMinChar") },
+    { max: 15, message: t("login.PasswordMaxChar") },
     {
-      type: "password",
-      message: "Please input correct password",
-      trigger: ["blur", "change"],
+      pattern: /^\S{6,15}$/,
+      message: t("login.UserBetweeninfo"),
+      trigger: "blur",
     },
   ],
   rember: [],
 });
 
+// 提交登录校验提示
 const submitForm = async (formCotact) => {
   if (!formCotact) return false;
 
   await formCotact.validate((valid, fields) => {
     if (valid) {
-      ElNotification({
-        title: "submit!",
-        message: "提交成功",
-        type: "success",
-      });
+      checkUserPower();
     } else {
       let str = "";
       for (let key in fields) {
@@ -112,18 +155,75 @@ const submitForm = async (formCotact) => {
         }
       }
       ElNotification({
-        title: "信息错误!",
+        title: t("login.WrongInformation"),
         dangerouslyUseHTMLString: true,
         message: str,
         type: "error",
-        duration: 60001,
+        duration: 4000,
       });
     }
   });
 };
 
+const btnRef = ref();
+// 通过locale.value切换语言
+const changeLang = (lang) => {
+  // console.log(locale.value, lang);
+  if (Object.prototype.toString.call(lang) == "[object String]") {
+    locale.value = lang;
+  } else locale.value = locale.value == "en-us" ? "zh-cn" : "en-us";
+  storage.setCache("locale", locale.value);
+};
 
+// 向导操作
+const showTour = () => {
+  loginLangTour.value = true;
+};
 
+const finishedTour = () => {
+  loginLangTour.value = false;
+  storage.setCache("firstInit", false);
+};
+
+// 检查用户是否登录
+const checkUserPower = function () {
+  const uuuinfo = storage.getCache("cusser_info"); //记录用户信息
+  if (Object.prototype.toString.call(uuuinfo) == "[object String]"){
+    const userData = uuuinfo ? JSON.parse(uuuinfo) : {};
+    // 注册的用户和登录的一致就允许登录(模拟登录功能，实际场景使用跨域请求服务器哦)
+    if(contactForm.name == userData.name&&contactForm.password == userData.password){
+      storage.setCache("isLoging", true);
+      router.push('/'); 
+      ElNotification({
+        title: "submit!",
+        message: t("login.SubmitSuccessfully"),
+        type: "success",
+      });
+    }else{ 
+    ElNotification({
+        title: "error!",
+        message: t("login.NeedRegisterFirst"),
+        type: "error",
+      });
+    }
+  }else{
+    ElNotification({
+        title: "error!",
+        message: t("login.NeedRegisterFirst"),
+        type: "error",
+      });
+  }
+};
+
+//
+onMounted(() => {
+  changeLang(storage.getCache("locale")); //通过缓存初始化语言
+  // nextTick(() => {
+    // console.warn(loginLangTour);
+    // loginLangTour.value = true;
+    // loginLangTour.TourStep.current =2;
+  // });
+});
 </script>
 
 <style lang="scss" src="./formbox.scss" scoped></style>

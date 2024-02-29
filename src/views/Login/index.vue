@@ -3,45 +3,19 @@ import { ref } from "vue";
 import { defineAsyncComponent } from "vue";
 const LoginForm = defineAsyncComponent(() => import("./LoginForm.vue"));
 const RegisterForm = defineAsyncComponent(() => import("./RegisterForm.vue"));
+// 管理登录状态
 const isLogin = ref(true);
-// const inRegister = ref(false);
 
 const whetherRegister = function () {
-  console.log("whetherRegister",isLogin.value);
-  // inRegister.value=isLogin.value?false:true;
-  isLogin.value = isLogin.value === false ? true : false;
-  // setTimeout(function() {
-  //     inRegister.value=true;
-  // }, 2000);
-};
-// import LoginForm from "./LoginForm.vue"
-// import RegisterForm from "./RegisterForm.vue"
-
-// import { testAPI } from "@/api/testApi";
-// // 测试天气接口
-// testAPI().then((res) => {
-//   console.warn(res);
-// });
-// const async_icon = ()=>({
-//   // 要加载的组件
-//   component:import("./ProjectIntro.vue"),
-//   // 加载过程中展示的组件
-// //   loading:loading,
-// //   // 加载失败时展示的组件
-// //   error:page404,
-//   // 延时加载时间
-//   delay:500,
-//   // 超时时间
-//   timeout:2000,
-// })
+  // console.log("whetherRegister",isLogin.value);
+  isLogin.value = isLogin.value === false ? true : false; 
+}; 
 </script>
 
 <template>
   <div class="user-box">
     <Transition name="sun-login">
-      <LoginForm :whetherRegister="whetherRegister" v-if="isLogin" >
-        
-      </LoginForm>
+      <LoginForm :whetherRegister="whetherRegister" v-if="isLogin" />
     </Transition>
     <Transition name="sun-register">
       <RegisterForm  :whetherRegister="whetherRegister" v-if="!isLogin" />

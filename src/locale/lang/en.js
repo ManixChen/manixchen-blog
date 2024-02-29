@@ -1,0 +1,36 @@
+export default {
+  login: {
+    name: 'Sign Up',
+    title: 'Sunshine Sign Up',
+    UserName: 'User Name',
+    Password: 'Password',
+    RePassword: 'RePassword', 
+    ForgotPassword: 'Forgot your password ?',
+    RememberMe: 'Remember me',
+    AccountCannotEmpty: 'The account cannot be empty', 
+    MinUserinfo: 'The user length is a minimum of 4 characters', 
+    MaxUserinfo: 'The user length should not exceed 12 characters',  
+    NeedPassword: 'Please enter your password ', 
+    PasswordMinChar: 'The password contains a minimum of 6 characters', 
+    PasswordMaxChar: 'The password must contain no more than 15 characters', 
+    UserBetweeninfo: 'The password must be 6 to 15 non-null characters', 
+    SubmitSuccessfully: 'submit successfully', 
+    WrongInformation: 'wrong information', 
+    NewTomillo: 'New to Tomillo?', 
+    SignUp: 'Sign Up?', 
+    NeedRegisterFirst: 'Sorry You have not registered yet, please register first', 
+  },
+  register:{
+    NeedPassword: 'Please type your password again to confirm ', 
+    RepeatPassword: 'Repeat Password', 
+    PasswordNeedSame: 'The two passwords you typed do not match', 
+    UserEmail: 'User Email',
+    NeedEmail: 'Please input email', 
+    CorrectEmail: 'Please input correct email',  
+    HasCount: ' Already have an account ?',  
+    Login: ' Login',  
+  },
+  index: {
+    title: 'Hello, Vue-i18n',
+  }
+}

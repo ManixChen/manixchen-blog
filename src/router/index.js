@@ -1,4 +1,6 @@
+import {ref} from 'vue';
 import { createRouter, createWebHashHistory } from "vue-router";
+import storage from "@/utils/storage";
 import Layout from "../views/Layout/index.vue";
 import Home from "../views/Home/index.vue";
 // import LoginView from "../views/Login/index.vue";
@@ -89,5 +91,26 @@ const router = createRouter({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = ref(false); 
+  const whetnerLogin = Object.prototype.toString.call(storage.getCache("isLoging")) ;
+
+  console.error(whetnerLogin);
+  const isLoging = whetnerLogin== "[object Boolean]"?whetnerLogin:false;
+  // console.log("isLoging::",isLoging);
+  const uuuinfo = storage.getCache("cusser_info"); //记录用户信息
+  if (Object.prototype.toString.call(uuuinfo) == "[object String]"&&isLoging){
+    const userData = uuuinfo ? JSON.parse(uuuinfo) : {};
+    isAuthenticated.value=true;
+  } 
+  console.log(isAuthenticated,uuuinfo);
+  if (to.name !== 'Login' && !isAuthenticated.value){
+    next({ name: 'Login' })
+  }
+  else{
+    next()
+  }
+})
 
 export default router;

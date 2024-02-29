@@ -9,7 +9,7 @@
     <section>
       <el-form
         class="loginForm"
-        ref="contactFormRef"
+        ref="registerFormRef"
         :rules="rules"
         :model="contactForm"
         label-position="top"
@@ -18,16 +18,20 @@
         label-width="200px"
       >
         <el-form-item prop="name">
-          <el-input v-model="contactForm.name" placeholder="User Name" />
+          <el-input v-model="contactForm.name" 
+          :placeholder="$t('login.UserName')"/>
         </el-form-item>
         <el-form-item prop="email">
-          <el-input v-model="contactForm.email" placeholder="User Email" />
+          <el-input v-model="contactForm.email" 
+          :placeholder="$t('register.UserEmail')"/>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="contactForm.password" placeholder="Password" />
-        </el-form-item>
-        <el-form-item prop="repassword">
-          <el-input v-model="contactForm.repassword" placeholder="Repeat Password" />
+          <el-input type="password" v-model="contactForm.password"
+          :placeholder="$t('login.Password')"/>
+        </el-form-item> 
+        <el-form-item  prop="repassword">
+          <el-input type="password"  v-model="contactForm.repassword"
+               :placeholder="$t('register.RepeatPassword')" />
         </el-form-item> 
          
         <div class="action-footer vertical-align-center">
@@ -36,14 +40,14 @@
             type="primary"
             round
             class="login-circle"
-            @click="submitForm(contactFormRef)"
+            @click="submitForm(registerFormRef)"
           >
-            SignUp
+            {{$t('login.SignUp')}}
           </el-button>
         </div>
         <div class="action-footer action-bottom">
-            Already have an account ?
-          <a @click="whetherRegister" href="javascript:void(0)">Login</a>
+           {{$t('register.HasCount')}}
+          <a @click="whetherRegister" href="javascript:void(0)"> {{$t('register.Login')}}</a>
         </div>
       </el-form>
     </section>
@@ -52,61 +56,64 @@
 </template>
 <script setup>
 
-import { reactive, ref } from "vue";
+import { nextTick, onMounted,reactive, ref,toRefs} from "vue";
 import { ElNotification } from "element-plus";
-import { HomeFilled } from "@element-plus/icons-vue";
+import { HomeFilled, DocumentCopy } from "@element-plus/icons-vue";
+import storage from '@/utils/storage'
+// 多语言切换
+import { useI18n } from "vue-i18n";
+const { locale, t } = useI18n();
 defineProps({
   whetherRegister: Function,
 })
-const contactFormRef = ref();
+const registerFormRef = ref();
 const contactForm = reactive({
   name: "",
   email: "",
-  message: "",
+  password: "",
+  repassword: "",
 });
 const rules = reactive({
-  name: [
-    // required是否必填,message不符合此规则时的提示信息,
-    // trigger触发此条规则校验的时机，有两个值, blur 或 change,默认就是blur和change都会进行校验
-    // min此字段的最小长度，max此字段的最大长度
-    // pattern 正则表达式
-    { required: true, message: "账户不能为空", trigger: "blur" },
-    { min: 6, max: 14, message: "用户长度不要超过14位，最短6位" },
+  name: [ 
+    { required: true, message: t("login.AccountCannotEmpty"), trigger: "blur" },
+    { min: 4, message: t("login.MinUserinfo") },
+    { max: 12, message: t("login.MaxUserinfo") },
   ],
   password: [
     {
       required: true,
-      message: "Please input password",
+      message: t("login.NeedPassword"),
       trigger: "blur",
     },
-    {
-      type: "password",
-      message: "Please input correct password",
-      trigger: ["blur", "change"],
-    },
+    { min: 6, message: t("login.PasswordMinChar") },
+    { max: 15, message: t("login.PasswordMaxChar") },
   ], 
   repassword: [
+    { required: true, message: t("register.NeedPassword") , trigger: 'blur' },
     {
-      required: true,
-      message: "Please input repassword",
-      trigger: "blur",
-    },
-    {
-      type: "repassword",
-      message: "Please input correct repassword",
-      trigger: ["blur", "change"],
-    },
+      validator: (rule, value, callback) => { 
+        // 判断 value 和 当前 form 中收集的 password 是否一致
+        // console.log(value,contactForm.password);
+        if (value !== contactForm.password) {
+          callback(new Error(t("register.PasswordNeedSame")))
+        } else {
+          callback() // 就算校验成功，也需要callback
+        }
+      },
+      trigger: 'blur'
+    }
   ], 
   email: [
     {
       required: true,
-      message: "Please input email",
+      message:  t("register.NeedEmail"),
       trigger: "blur",
-    },
+    },   
     {
-      type: "email",
-      message: "Please input correct email",
-      trigger: ["blur", "change"],
+      // pattern:/^[a-zA-Z0-9_\.]+@?[a-zA-Z0-9-]{1,9}\+[\.a-zA-Z]{1,3}\+$/,
+      pattern:/((\w+)|(\w+[!#$%&'*+\-,./=?^_`{|}~\w]*[!#$%&'*+\-,/=?^_`{|}~\w]))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,10}|[0-9]{1,3})(\]?)/,
+      message: t("register.CorrectEmail"),
+      trigger: "blur",
     },
   ], 
 });
@@ -115,10 +122,13 @@ const submitForm = async (formCotact) => {
   if (!formCotact) return false;
 
   await formCotact.validate((valid, fields) => {
-    if (valid) {
+    if (valid) { 
+      storage.setCache("cusser_info",JSON.stringify(contactForm));//记录用户信息
+      // registerFormRef.resetFields();
+      
       ElNotification({
         title: "submit!",
-        message: "提交成功",
+        message: t("login.SubmitSuccessfully"),
         type: "success",
       });
     } else {
@@ -131,7 +141,7 @@ const submitForm = async (formCotact) => {
         }
       }
       ElNotification({
-        title: "信息错误!",
+        title: t("login.WrongInformation"),
         dangerouslyUseHTMLString: true,
         message: str,
         type: "error",

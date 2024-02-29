@@ -4,6 +4,22 @@
     background: #fff;
     border-radius: 10px;
     padding: 30px;
+    position: relative;
+    
+  #change-lang{
+    position: absolute;
+    right: 30px;
+    top: 15px;
+    z-index: 11;
+    cursor: pointer;
+    b{
+      font-size: 1.6rem;
+      opacity: 0.4;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
   }
   header {
     text-align: center;
@@ -22,7 +38,7 @@
       opacity: 8;
     }
   }
-  
+  //vue3中的scss样式穿透有所调整
   ::v-deep() {
     .el-form  input,span {
       font-weight: 400;
@@ -40,9 +56,15 @@
         background: #f4fafe;
       }
     }
+    .el-form-item__error{
+      font-size: 1.6rem; 
+      padding: 0.6rem 0 0 1rem;
+    }
   } 
    
-  
+  .rember{
+    padding: 10px 0;
+  }
    .action-footer {
     text-align: center;
     padding: 30px;
