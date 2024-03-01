@@ -14,7 +14,6 @@ import logo from"/public/logo.png"
 import logoWhite from"/public/logo-white.png"
 const indexstore = useIndexStore();
 const { bgmusic,  y ,isLoging} = storeToRefs(indexstore); 
-// computed(()=>bgmusic)
 </script>
 
  

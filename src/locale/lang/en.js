@@ -29,6 +29,7 @@ export default {
     CorrectEmail: 'Please input correct email',  
     HasCount: ' Already have an account ?',  
     Login: ' Login',  
+    RegistrationSuccessful: ' Registration Successful',  
   },
   index: {
     title: 'Hello, Vue-i18n',

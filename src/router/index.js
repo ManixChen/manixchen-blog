@@ -94,18 +94,20 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = ref(false); 
-  const whetnerLogin = Object.prototype.toString.call(storage.getCache("isLoging")) ;
+  const Loging = storage.getCache("isLoging") ;
+  const whetnerLogin = Object.prototype.toString.call(Loging) ;
 
-  console.error(whetnerLogin);
-  const isLoging = whetnerLogin== "[object Boolean]"?whetnerLogin:false;
+  const isLoging = whetnerLogin== "[object Boolean]"?Loging:false;
   // console.log("isLoging::",isLoging);
   const uuuinfo = storage.getCache("cusser_info"); //记录用户信息
   if (Object.prototype.toString.call(uuuinfo) == "[object String]"&&isLoging){
-    const userData = uuuinfo ? JSON.parse(uuuinfo) : {};
     isAuthenticated.value=true;
   } 
-  console.log(isAuthenticated,uuuinfo);
-  if (to.name !== 'Login' && !isAuthenticated.value){
+  //登录状态强制首页
+  if (to.name === 'Login' && isAuthenticated.value){
+    next({ name: 'index' })
+  }else if (to.name !== 'Login' && !isAuthenticated.value){
+    //未登录状态强制登录页
     next({ name: 'Login' })
   }
   else{

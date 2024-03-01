@@ -56,16 +56,18 @@
 </template>
 <script setup>
 
-import { nextTick, onMounted,reactive, ref,toRefs} from "vue";
+import { reactive, ref} from "vue";
 import { ElNotification } from "element-plus";
-import { HomeFilled, DocumentCopy } from "@element-plus/icons-vue";
+import { HomeFilled } from "@element-plus/icons-vue";
 import storage from '@/utils/storage'
 // 多语言切换
 import { useI18n } from "vue-i18n";
-const { locale, t } = useI18n();
-defineProps({
+const props = defineProps({
   whetherRegister: Function,
 })
+
+
+const { locale, t } = useI18n();
 const registerFormRef = ref();
 const contactForm = reactive({
   name: "",
@@ -124,13 +126,14 @@ const submitForm = async (formCotact) => {
   await formCotact.validate((valid, fields) => {
     if (valid) { 
       storage.setCache("cusser_info",JSON.stringify(contactForm));//记录用户信息
-      // registerFormRef.resetFields();
-      
+      //重置注册表单
+      registerFormRef.value.resetFields();
       ElNotification({
         title: "submit!",
         message: t("login.SubmitSuccessfully"),
         type: "success",
       });
+      props.whetherRegister();
     } else {
       let str = "";
       for (let key in fields) {

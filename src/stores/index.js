@@ -23,7 +23,9 @@ export const useIndexStore = defineStore('index', () => {
   } 
   // 退出登录
   function logoutPage() {
-    storage.setCache("isLoging",false);
+    // storage.setCache("isLoging",false);
+    // storage.setCache("cusser_info",null);
+    storage.clearCache();
     router.push('/login');  
   }  
   return { bgmusic,isActive,playAudio, logoutPage, x,y ,isLoging}
