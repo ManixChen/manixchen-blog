@@ -1,4 +1,4 @@
-import { onMounted, reactive, ref,nextTick } from "vue";
+import { onMounted, reactive, ref,nextTick, computed } from "vue";
 import { defineStore } from "pinia";
 import { useI18n } from "vue-i18n";
 import router from "@/router";
@@ -7,7 +7,7 @@ import storage from "@/utils/storage";
 
 export const useLoginStore = defineStore("login", () => {
   // 多语言切换
-  const { locale, t } = useI18n();
+  const { locale, t } = useI18n(); 
   // 向导
   const loginLangTour = ref(false);
   // 登录表单
@@ -20,34 +20,48 @@ export const useLoginStore = defineStore("login", () => {
   });
 
   // 登录校验规则
-  const rules = reactive({
-    name: [
-      {
-        required: true,
-        message: t("login.AccountCannotEmpty"),
-        trigger: "blur",
-      },
-      { min: 4, message: t("login.MinUserinfo") },
-      { max: 12, message: t("login.MaxUserinfo") },
-    ],
-    password: [
-      {
-        required: true,
-        message: t("login.NeedPassword"),
-        trigger: "blur",
-      },
-      { min: 6, message: t("login.PasswordMinChar") },
-      { max: 15, message: t("login.PasswordMaxChar") },
-      {
-        pattern: /^\S{6,15}$/,
-        message: t("login.UserBetweeninfo"),
-        trigger: "blur",
-      },
-    ],
-    rember: [],
-  });
+  // const rules = reactive({
+  //   name: [
+  //     {
+  //       required: true,
+  //       message: t("login.AccountCannotEmpty"),
+  //       trigger: "blur",
+  //     },
+  //     { min: 4, message: t("login.MinUserinfo") },
+  //     { max: 12, message: t("login.MaxUserinfo") },
+  //   ],  
+  // });
 
-  // 提交登录校验提示
+  // 提交登录校验提示 （计算属性才能解决在store中相应数据问题）
+  const rules = computed(()=>{
+    return {
+      name: [
+        {
+          required: true,
+          message: t("login.AccountCannotEmpty"),
+          trigger: "blur",
+        },
+        { min: 4, message: t("login.MinUserinfo") },
+        { max: 12, message: t("login.MaxUserinfo") },
+      ],
+      password: [
+        {
+          required: true,
+          message: t("login.NeedPassword"),
+          trigger: "blur",
+        },
+        { min: 6, message: t("login.PasswordMinChar") },
+        { max: 15, message: t("login.PasswordMaxChar") },
+        {
+          pattern: /^\S{6,15}$/,
+          message: t("login.UserBetweeninfo"),
+          trigger: "blur",
+        },
+      ],
+      rember: [],
+    }
+  })
+  const WrongInformation =computed(()=>t("login.WrongInformation"));
   const submitForm = async (formCotact) => {
     if (!formCotact) return false;
 
@@ -59,12 +73,12 @@ export const useLoginStore = defineStore("login", () => {
         for (let key in fields) {
           if (fields[key]) {
             for (let k in fields[key]) {
-              str += fields[key][k].message + "<br/>";
+              str += fields[key][k].message + "\\n";
             }
           }
         }
         ElNotification({
-          title: t("login.WrongInformation"),
+          title: WrongInformation,
           dangerouslyUseHTMLString: true,
           message: str,
           type: "error",
@@ -83,7 +97,6 @@ export const useLoginStore = defineStore("login", () => {
       locale.value = locale.value == "en-us" ? "zh-cn" : "en-us";
     }
     storage.setCache("locale", locale.value);
-    console.log("localelocalelocalelocale",locale.value, lang);
   };
 
   // 向导操作

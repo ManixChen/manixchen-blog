@@ -60,15 +60,18 @@
         </div>
         <div class="action-footer action-bottom">
           {{ $t("login.NewTomillo") }}
-          <a @click="whetherRegister" id="signup" href="javascript:void(0)">{{
-            $t("login.SignUp")
-          }}</a>
+          <a
+            @click="$emit('whetherRegister')"
+            id="signup"
+            href="javascript:void(0)"
+            >{{ $t("login.SignUp") }}</a
+          >
         </div>
         <div></div>
       </el-form>
     </section>
 
-    <!-- 登录多语言切换向导 -->
+    <!-- 登录多语言切换向导             -->
     <el-tour v-model="loginLangTour" :finish="loginstore.finishedTour">
       <el-tour-step
         target="#change-lang"
@@ -90,17 +93,16 @@
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/stores/login";
 const loginstore = useLoginStore();
-const {locale,loginLangTour,contactFormRef,contactForm,rules} = storeToRefs(loginstore); 
+const { locale, loginLangTour, contactFormRef, contactForm, rules } =
+  storeToRefs(loginstore);
 //     onMounted,checkUserPower,finishedTour,showTour,submitForm
 import { HomeFilled, DocumentCopy } from "@element-plus/icons-vue";
- 
+
 // 父组件方法
-defineProps({
-  whetherRegister: Function,
-});
+defineEmits(["whetherRegister"]);
 </script>
 
 <style lang="scss" src="./formbox.scss" scoped></style>

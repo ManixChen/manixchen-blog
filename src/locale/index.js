@@ -5,8 +5,8 @@ export default createI18n({
   legacy: false, // 让 setup 函数可以通过 t 访问
   globalInjection: true, // 让 template 可以像 vue2 那样使用 $t 来访问
 	allowcomposition : true, // 允许組合式api
-  locale: 'en-us',
-  // fallbackLocale: 'zh-cn',
+  locale: 'zh-cn',
+  fallbackLocale: 'zh-cn',
   // fallbackWarn: false, 
   // missingWarn:false, //
   // silentFallbackWarn: false, 

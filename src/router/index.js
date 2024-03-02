@@ -92,6 +92,7 @@ const router = createRouter({
   ],
 });
 
+// 导航守卫
 router.beforeEach((to, from, next) => {
   const isAuthenticated = ref(false); 
   const Loging = storage.getCache("isLoging") ;

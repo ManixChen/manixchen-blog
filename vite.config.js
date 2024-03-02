@@ -12,7 +12,12 @@ import IconsResolver from 'unplugin-icons/resolver'
 export default defineConfig({ 
   // define: {'process.env': {}},
   plugins: [
-    vue(),
+    vue({
+      script: {
+        // 开启 defineModel
+        defineModel: true
+      }
+    }),
     AutoImport({
       resolvers: [
         ElementPlusResolver(),

@@ -1,24 +1,23 @@
 <script setup>
-import { ref } from "vue";
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent} from "vue"; 
+import { storeToRefs } from "pinia";
 const LoginForm = defineAsyncComponent(() => import("./LoginForm.vue"));
 const RegisterForm = defineAsyncComponent(() => import("./RegisterForm.vue"));
-// 管理登录状态
-const isLogin = ref(true);
+import { useLoginboxStore } from "@/stores/loginbox";
 
-const whetherRegister = function () {
-  // console.log("whetherRegister",isLogin.value);
-  isLogin.value = isLogin.value === false ? true : false; 
-}; 
+const loginboxStore = useLoginboxStore();
+const { isLogin} = storeToRefs(loginboxStore)
+
+const whetherRegister =loginboxStore.whetherRegister
 </script>
 
 <template>
   <div class="user-box">
     <Transition name="sun-login">
-      <LoginForm :whetherRegister="whetherRegister" v-if="isLogin" />
+      <LoginForm @whetherRegister="whetherRegister" v-if="isLogin" />
     </Transition>
     <Transition name="sun-register">
-      <RegisterForm  :whetherRegister="whetherRegister" v-if="!isLogin" />
+      <RegisterForm  @whetherRegister="whetherRegister" v-if="!isLogin" />
     </Transition>
     <!-- <a @click="whetherRegister"  href="javascript:void(0)">注册</a> -->
   </div>
@@ -44,7 +43,7 @@ body {
   overflow: hidden;
 }
 .sun-login-enter-active {
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
 }
 
 .sun-login-leave-active {
@@ -59,7 +58,7 @@ body {
 
 /***注册动画*/
 .sun-register-enter-active {
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
 }
 
 .sun-register-leave-active {
@@ -68,7 +67,7 @@ body {
 
 .sun-register-enter-from,
 .sun-register-leave-to {
-  transform: translateX(4400px);
+  transform: translateX(2400px);
   opacity: 0;
 }
 </style>
