@@ -1,10 +1,5 @@
 <template>
   <div class="login-form">
-    <span @click="loginstore.changeLang" id="change-lang">
-      <b v-if="locale == 'en-us'">中</b>
-      <b v-if="locale == 'zh-cn'">ENG</b>
-      <el-icon v-show="false"><DocumentCopy /></el-icon>
-    </span>
     <header>
       <div>
         <el-icon @click="loginstore.showTour"><HomeFilled /></el-icon>
@@ -61,7 +56,7 @@
         <div class="action-footer action-bottom">
           {{ $t("login.NewTomillo") }}
           <a
-            @click="$emit('whetherRegister')"
+            @click="loginstore.loginboxStore.whetherRegister"
             id="signup"
             href="javascript:void(0)"
             >{{ $t("login.SignUp") }}</a
@@ -96,13 +91,9 @@
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "@/stores/login";
 const loginstore = useLoginStore();
-const { locale, loginLangTour, contactFormRef, contactForm, rules } =
-  storeToRefs(loginstore);
-//     onMounted,checkUserPower,finishedTour,showTour,submitForm
-import { HomeFilled, DocumentCopy } from "@element-plus/icons-vue";
-
-// 父组件方法
-defineEmits(["whetherRegister"]);
+const {  loginLangTour, contactFormRef, contactForm, rules } =  storeToRefs(loginstore);
+import { HomeFilled } from "@element-plus/icons-vue";
+// 父组件方法 
 </script>
 
 <style lang="scss" src="./formbox.scss" scoped></style>

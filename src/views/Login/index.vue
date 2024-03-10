@@ -1,25 +1,30 @@
 <script setup>
 import { defineAsyncComponent} from "vue"; 
 import { storeToRefs } from "pinia";
+import { DocumentCopy } from "@element-plus/icons-vue";
 const LoginForm = defineAsyncComponent(() => import("./LoginForm.vue"));
 const RegisterForm = defineAsyncComponent(() => import("./RegisterForm.vue"));
 import { useLoginboxStore } from "@/stores/loginbox";
 
 const loginboxStore = useLoginboxStore();
-const { isLogin} = storeToRefs(loginboxStore)
-
-const whetherRegister =loginboxStore.whetherRegister
+const { isLogin,locale} = storeToRefs(loginboxStore)
 </script>
 
 <template>
   <div class="user-box">
-    <Transition name="sun-login">
-      <LoginForm @whetherRegister="whetherRegister" v-if="isLogin" />
-    </Transition>
-    <Transition name="sun-register">
-      <RegisterForm  @whetherRegister="whetherRegister" v-if="!isLogin" />
-    </Transition>
-    <!-- <a @click="whetherRegister"  href="javascript:void(0)">注册</a> -->
+    <div class="container">
+      <span @click="loginboxStore.changeLang" id="change-lang">
+        <b v-if="locale == 'en-us'">中</b>
+        <b v-if="locale == 'zh-cn'">ENG</b>
+        <el-icon v-show="false"><DocumentCopy /></el-icon>
+      </span>
+      <Transition name="sun-login">
+        <LoginForm v-if="isLogin" />
+      </Transition>
+      <Transition name="sun-register">
+        <RegisterForm  v-if="!isLogin" />
+      </Transition>
+    </div>
   </div>
 </template>
 
@@ -27,8 +32,12 @@ const whetherRegister =loginboxStore.whetherRegister
 body {
   margin: 0;
 }
+.container{
+  display: inline-block ;
+  position: relative;
+}
 .user-box {
-  position: absolute;
+  position: fixed;
   z-index: 1;
   height: 100%;
   width: 100%;
@@ -38,6 +47,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  #change-lang{
+    position: absolute;
+    right: 30px;
+    top: 15px;
+    z-index: 1;
+    cursor: pointer;
+    b{
+      font-size: 1.8rem;
+      opacity: 0.4;
+      color: #4A97E7;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
 }
 body {
   overflow: hidden;

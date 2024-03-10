@@ -16,6 +16,7 @@ export default {
       UserBetweeninfo: '密码必须是 6-15位 的非空字符', 
       SubmitSuccessfully: '提交成功', 
       WrongInformation: '信息错误', 
+      IncorrectPassword: '密码不正确', 
       NewTomillo: '创建一个新账号?', 
       SignUp: '注册?', 
       NeedRegisterFirst: 'Sorry您还未注册，请先注册', 

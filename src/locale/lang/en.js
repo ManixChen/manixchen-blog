@@ -16,6 +16,7 @@ export default {
     UserBetweeninfo: 'The password must be 6 to 15 non-null characters', 
     SubmitSuccessfully: 'submit successfully', 
     WrongInformation: 'wrong information', 
+    IncorrectPassword: 'Incorrect password', 
     NewTomillo: 'New to Tomillo?', 
     SignUp: 'Sign Up?', 
     NeedRegisterFirst: 'Sorry You have not registered yet, please register first', 

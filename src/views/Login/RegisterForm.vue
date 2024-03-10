@@ -57,7 +57,7 @@
         </div>
         <div class="action-footer action-bottom">
           {{ $t("register.HasCount") }}
-          <a @click="$emit('whetherRegister')" href="javascript:void(0)">
+          <a @click="registerstore.loginboxStore.whetherRegister" href="javascript:void(0)">
             {{ $t("register.Login") }}</a
           >
         </div>
@@ -74,7 +74,7 @@ import { useRegisterStore } from "@/stores/register";
 const registerstore = useRegisterStore();
 const { registerFormRef, contactForm, rules } = storeToRefs(registerstore);
 // 父组件方法
-defineEmits(["whetherRegister"]);
+// defineEmits(["whetherRegister"]);
 </script>
 
 <style lang="scss" src="./formbox.scss" scoped></style>

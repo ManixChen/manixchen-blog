@@ -5,9 +5,12 @@ import { ElNotification } from "element-plus";
 import storage from "@/utils/storage";
 // 多语言切换
 import { useI18n } from "vue-i18n";
+import { useLoginboxStore } from "@/stores/loginbox"; 
 
 export const useRegisterStore = defineStore("register", () => {
   const { locale, t } = useI18n();
+  //登录模块共享数据
+  const loginboxStore = useLoginboxStore();
   const registerFormRef = ref();
   const contactForm = reactive({
     name: "",
@@ -84,6 +87,7 @@ export const useRegisterStore = defineStore("register", () => {
           message: t("login.SubmitSuccessfully"),
           type: "success",
         });
+        loginboxStore.whetherRegister();
         // emit("whetherRegister");
       } else {
         let str = "";
@@ -111,5 +115,6 @@ export const useRegisterStore = defineStore("register", () => {
     contactForm,
     rules,
     submitForm,
+    loginboxStore
   };
 });

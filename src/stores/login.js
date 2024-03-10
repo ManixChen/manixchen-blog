@@ -1,13 +1,16 @@
 import { onMounted, reactive, ref,nextTick, computed } from "vue";
-import { defineStore } from "pinia";
+import { defineStore } from "pinia"; 
 import { useI18n } from "vue-i18n";
 import router from "@/router";
 import { ElNotification } from "element-plus";
 import storage from "@/utils/storage";
+import { useLoginboxStore } from "@/stores/loginbox"; 
 
 export const useLoginStore = defineStore("login", () => {
-  // 多语言切换
-  const { locale, t } = useI18n(); 
+  // 通用用户模块
+  const loginboxStore = useLoginboxStore();
+   
+  const {  t } = useI18n(); 
   // 向导
   const loginLangTour = ref(false);
   // 登录表单
@@ -18,6 +21,7 @@ export const useLoginStore = defineStore("login", () => {
     password: "",
     rember: false,
   });
+  const infoStr=ref();
 
   // 登录校验规则
   // const rules = reactive({
@@ -61,7 +65,7 @@ export const useLoginStore = defineStore("login", () => {
       rember: [],
     }
   })
-  const WrongInformation =computed(()=>t("login.WrongInformation"));
+  // const WrongInformation =;
   const submitForm = async (formCotact) => {
     if (!formCotact) return false;
 
@@ -73,30 +77,23 @@ export const useLoginStore = defineStore("login", () => {
         for (let key in fields) {
           if (fields[key]) {
             for (let k in fields[key]) {
-              str += fields[key][k].message + "\\n";
+              str += `${fields[key][k].message } </br>`; 
             }
           }
         }
-        ElNotification({
-          title: WrongInformation,
-          dangerouslyUseHTMLString: true,
-          message: str,
-          type: "error",
-          duration: 4000,
-        });
+        infoStr.value = str;
+        WrongInformation(str);
       }
     });
   };
-
-  // 通过locale.value切换语言
-  const changeLang = (lang) => {
-    // 初始化语言
-    if (Object.prototype.toString.call(lang) == "[object String]") {
-      locale.value = lang;
-    } else{
-      locale.value = locale.value == "en-us" ? "zh-cn" : "en-us";
-    }
-    storage.setCache("locale", locale.value);
+  const  WrongInformation= async (formCotact) => { 
+    ElNotification({
+      title: t("login.WrongInformation"),
+      dangerouslyUseHTMLString: true,
+      message: formCotact,
+      type: "error",
+      duration: 3000,
+    });
   };
 
   // 向导操作
@@ -132,11 +129,21 @@ export const useLoginStore = defineStore("login", () => {
           type: "success",
         });
       } else {
-        ElNotification({
-          title: "error!",
-          message: t("login.NeedRegisterFirst"),
-          type: "error",
-        });
+        const userWarning =function (str) {
+          ElNotification({
+            title: "error!",
+            message: str,
+            type: "error",
+          });
+        }
+        // 密码不正确
+        if(contactForm.password != userData.password){
+          contactForm.password="";
+          userWarning(t("login.IncorrectPassword"))
+        }else{ 
+          userWarning(t("login.NeedRegisterFirst"));
+        }
+        
       }
     } else {
       ElNotification({
@@ -151,8 +158,8 @@ export const useLoginStore = defineStore("login", () => {
     storage.setCache("isRember",contactForm.rember )
   }
   //
-  onMounted(() => {
-    changeLang(storage.getCache("locale")); //通过缓存初始化语言
+  onMounted(() => { 
+    loginboxStore.changeLang(storage.getCache("locale")); //通过缓存初始化语言
     nextTick(() => {
       // 查看是否记住密码 
       const isRember = storage.getCache("isRember")===true?true:false;
@@ -168,17 +175,16 @@ export const useLoginStore = defineStore("login", () => {
     });
   });
 
-  return {
-    locale,
+  return { 
     loginLangTour,
     contactFormRef,
     contactForm,
-    rules,
-    changeLang,
+    rules, 
     checkUserPower,
     finishedTour,
     showTour,
     submitForm,
-    remberInfo
+    remberInfo,
+    loginboxStore
   };
 });

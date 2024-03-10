@@ -6,20 +6,6 @@
     padding: 30px;
     position: relative;
     
-  #change-lang{
-    position: absolute;
-    right: 30px;
-    top: 15px;
-    z-index: 11;
-    cursor: pointer;
-    b{
-      font-size: 1.6rem;
-      opacity: 0.4;
-      &:hover {
-        opacity: 1;
-      }
-    }
-  }
   }
   header {
     text-align: center;
