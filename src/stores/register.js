@@ -18,60 +18,59 @@ export const useRegisterStore = defineStore("register", () => {
     password: "",
     repassword: "",
   });
-  const rules = computed(() => {
-    return {
-      name: [
-        {
-          required: true,
-          message: t("login.AccountCannotEmpty"),
-          trigger: "blur",
+  //computed(()=>{return t("login.MinUserinfo")})
+  const rules = reactive({
+    name: [
+      {
+        required: true,
+        message: computed(()=>{return t("login.AccountCannotEmpty")}),
+        trigger: "blur",
+      },
+      { min: 4, message:computed(()=>{return  t("login.MinUserinfo") })},
+      { max: 12, message:computed(()=>{return  t("login.MaxUserinfo")}) },
+    ],
+    password: [
+      {
+        required: true,
+        message: computed(()=>{return t("login.NeedPassword")}),
+        trigger: "blur",
+      },
+      { min: 6, message:computed(()=>{return  t("login.PasswordMinChar") })},
+      { max: 15, message: computed(()=>{return t("login.PasswordMaxChar") })},
+    ],
+    repassword: [
+      {
+        required: true,
+        message:computed(()=>{return  t("register.NeedPassword")}),
+        trigger: "blur",
+      },
+      {
+        validator: (rule, value, callback) => {
+          // 判断 value 和 当前 form 中收集的 password 是否一致
+          // console.log(value,contactForm.password);
+          if (value !== contactForm.password) {
+            callback(new Error(computed(()=>{return t("register.PasswordNeedSame")})));
+          } else {
+            callback(); // 就算校验成功，也需要callback
+          }
         },
-        { min: 4, message: t("login.MinUserinfo") },
-        { max: 12, message: t("login.MaxUserinfo") },
-      ],
-      password: [
-        {
-          required: true,
-          message: t("login.NeedPassword"),
-          trigger: "blur",
-        },
-        { min: 6, message: t("login.PasswordMinChar") },
-        { max: 15, message: t("login.PasswordMaxChar") },
-      ],
-      repassword: [
-        {
-          required: true,
-          message: t("register.NeedPassword"),
-          trigger: "blur",
-        },
-        {
-          validator: (rule, value, callback) => {
-            // 判断 value 和 当前 form 中收集的 password 是否一致
-            // console.log(value,contactForm.password);
-            if (value !== contactForm.password) {
-              callback(new Error(t("register.PasswordNeedSame")));
-            } else {
-              callback(); // 就算校验成功，也需要callback
-            }
-          },
-          trigger: "blur",
-        },
-      ],
-      email: [
-        {
-          required: true,
-          message: t("register.NeedEmail"),
-          trigger: "blur",
-        },
-        {
-          // pattern:/^[a-zA-Z0-9_\.]+@?[a-zA-Z0-9-]{1,9}\+[\.a-zA-Z]{1,3}\+$/,
-          pattern:
-            /((\w+)|(\w+[!#$%&'*+\-,./=?^_`{|}~\w]*[!#$%&'*+\-,/=?^_`{|}~\w]))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,10}|[0-9]{1,3})(\]?)/,
-          message: t("register.CorrectEmail"),
-          trigger: "blur",
-        },
-      ],
-    };
+        trigger: "blur",
+      },
+    ],
+    email: [
+      {
+        required: true,
+        message:computed(()=>{return  t("register.NeedEmail")}),
+        trigger: "blur",
+      },
+      {
+        // pattern:/^[a-zA-Z0-9_\.]+@?[a-zA-Z0-9-]{1,9}\+[\.a-zA-Z]{1,3}\+$/,
+        pattern:
+          /((\w+)|(\w+[!#$%&'*+\-,./=?^_`{|}~\w]*[!#$%&'*+\-,/=?^_`{|}~\w]))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,10}|[0-9]{1,3})(\]?)/,
+        message:computed(()=>{return  t("register.CorrectEmail")}),
+        trigger: "blur",
+      },
+    ],
   });
 
   const submitForm = async (formCotact) => {

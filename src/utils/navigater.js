@@ -9,9 +9,9 @@ const getBrowserLang = function() {
     browserLang.toLowerCase() === "en" ||
     browserLang.toLowerCase() === "en_us"
   ) {
-    defaultBrowserLang = "en_US";
+    defaultBrowserLang = "en_us";
   } else {
-    defaultBrowserLang = "zh_CN";
+    defaultBrowserLang = "zh_cn";
   }
   return defaultBrowserLang.toLocaleLowerCase();
 };

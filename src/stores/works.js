@@ -2,30 +2,33 @@ import { ref ,computed} from 'vue'
 import { defineStore } from 'pinia'
 
 export const useWorksStore = defineStore('works', () => {
+    const getImgUrl = (src) =>{
+        return new URL(`${src}`, import.meta.url).href
+    }
     // 默认图集
     const allimgs = [
-        {src:"./assets/imgs/lunbo/project_anli_01.png",title:"**云购",desc:"WEB VUE3、elementplus、pinia、vuerouter、vueuse"},
-        {src:"./assets/imgs/lunbo/project_anli_04.png",title:"**易联网",desc:"WEB VUE2、elementui、vuex、vuerouter"}, 
-        {src:"./assets/imgs/lunbo/vesystem_02.png",title:"**下一代云桌面",desc:"PHP WEB:Server2012 + ThinkPhp + Bootstrap + Jquery"},
-        {src:"./assets/imgs/lunbo/anzhi_01.png",title:"安智商城前端",desc:"WEB: Vue3、elementplus、pinia、vuerouter、vueuse全家桶"},
-        {src:"./assets/imgs/lunbo/anzhi_06.png",title:"安智商城前端",desc:"WEB: Vue3、elementplus、pinia、vuerouter、vueuse全家桶"},
-        {src:"./assets/imgs/lunbo/anzhi_07.png",title:"安智商城前端",desc:"WEB: Vue3、elementplus、pinia、vuerouter、vueuse全家桶"},
-        {src:"./assets/imgs/lunbo/anzhi_08.png",title:"安智商城前端",desc:"WEB: Vue3、elementplus、pinia、vuerouter、vueuse全家桶"},
-        {src:"./assets/imgs/lunbo/vesystem_01.png",title:"**统一应用管理平台",desc:"Java WEB: SSM + Mysql + Vue1.0 + Bootstrap + Jquery"},
-        {src:"./assets/imgs/lunbo/vesystem_03.png",title:"**超融合一体化平台",desc:"Django WEB:  Mysql + Vue1.0 + Bootstrap + Jquery"},
-        {src:"./assets/imgs/lunbo/vesystem_04.png",title:"**智能数据感知分析平台",desc:"WEB: VUE1.0 + BlumaCss + Jquery +Echarts"},
-        {src:"./assets/imgs/lunbo/vesystem_05.png",title:"**云存储",desc:"java Spring boot WEB: Mysql + Vue1.0 + Bootstrap + Jquery"}, 
-        {src:"./assets/imgs/lunbo/vesystem_06.png",title:"**科技股份有限公司",desc:"--服务的客户--"},
-        {src:"./assets/imgs/lunbo/vesystem_07.png",title:"**科技股份有限公司",desc:"--服务的客户--"},
-        {src:"./assets/imgs/lunbo/vesystem_08.png",title:"**科技股份有限公司",desc:"--服务的客户--"},
-        {src:"./assets/imgs/lunbo/vesystem_09.png",title:"**科技股份有限公司",desc:"--服务的客户--"},
-        {src:"./assets/imgs/lunbo/vesystem_10.png",title:"**科技股份有限公司",desc:"--服务的客户--"}, 
-        {src:"./assets/imgs/lunbo/project_anli_02.png",title:"**云购",desc:"--登录入口--"},
-        {src:"./assets/imgs/lunbo/project_anli_03.png",title:"**云购",desc:"--内推注册入口，私域服务代理商注册接口，必须有代理商邀请码才行--"},
-        {src:"./assets/imgs/lunbo/anzhi_05.png",title:"安智商城管理端",desc:"JAVA SpringBoot  WEB: VUE2  Bootstrap + Jquery"},
-        {src:"./assets/imgs/lunbo/anzhi_04.png",title:"安智商城微信小程序",desc:"--商品购物车列表--"},
-        {src:"./assets/imgs/lunbo/anzhi_03.png",title:"安智商城微信小程序",desc:"WEB: Vue3 + Uni-app"},
-        {src:"./assets/imgs/lunbo/anzhi_02.png",title:"安智商城微信小程序",desc:"--登录页面--"},
+        {src:"/public/lunbo/project_anli_01.png",title:"**云购",desc:"WEB VUE3、elementplus、pinia、vuerouter、vueuse"},
+        {src:"/public/lunbo/project_anli_04.png",title:"**易联网",desc:"WEB VUE2、elementui、vuex、vuerouter"}, 
+        {src:"/public/lunbo/vesystem_02.png",title:"**下一代云桌面",desc:"PHP WEB:Server2012 + ThinkPhp + Bootstrap + Jquery"},
+        {src:"/public/lunbo/anzhi_01.png",title:"安智商城前端",desc:"WEB: Vue3、elementplus、pinia、vuerouter、vueuse全家桶"},
+        {src:"/public/lunbo/anzhi_06.png",title:"安智商城前端",desc:"WEB: Vue3、elementplus、pinia、vuerouter、vueuse全家桶"},
+        {src:"/public/lunbo/anzhi_07.png",title:"安智商城前端",desc:"WEB: Vue3、elementplus、pinia、vuerouter、vueuse全家桶"},
+        {src:"/public/lunbo/anzhi_08.png",title:"安智商城前端",desc:"WEB: Vue3、elementplus、pinia、vuerouter、vueuse全家桶"},
+        {src:"/public/lunbo/vesystem_01.png",title:"**统一应用管理平台",desc:"Java WEB: SSM + Mysql + Vue1.0 + Bootstrap + Jquery"},
+        {src:"/public/lunbo/vesystem_03.png",title:"**超融合一体化平台",desc:"Django WEB:  Mysql + Vue1.0 + Bootstrap + Jquery"},
+        {src:"/public/lunbo/vesystem_04.png",title:"**智能数据感知分析平台",desc:"WEB: VUE1.0 + BlumaCss + Jquery +Echarts"},
+        {src:"/public/lunbo/vesystem_05.png",title:"**云存储",desc:"java Spring boot WEB: Mysql + Vue1.0 + Bootstrap + Jquery"}, 
+        {src:"/public/lunbo/vesystem_06.png",title:"**科技股份有限公司",desc:"--服务的客户--"},
+        {src:"/public/lunbo/vesystem_07.png",title:"**科技股份有限公司",desc:"--服务的客户--"},
+        {src:"/public/lunbo/vesystem_08.png",title:"**科技股份有限公司",desc:"--服务的客户--"},
+        {src:"/public/lunbo/vesystem_09.png",title:"**科技股份有限公司",desc:"--服务的客户--"},
+        {src:"/public/lunbo/vesystem_10.png",title:"**科技股份有限公司",desc:"--服务的客户--"}, 
+        {src:"/public/lunbo/project_anli_02.png",title:"**云购",desc:"--登录入口--"},
+        {src:"/public/lunbo/project_anli_03.png",title:"**云购",desc:"--内推注册入口，私域服务代理商注册接口，必须有代理商邀请码才行--"},
+        {src:"/public/lunbo/anzhi_05.png",title:"安智商城管理端",desc:"JAVA SpringBoot  WEB: VUE2  Bootstrap + Jquery"},
+        {src:"/public/lunbo/anzhi_04.png",title:"安智商城微信小程序",desc:"--商品购物车列表--"},
+        {src:"/public/lunbo/anzhi_03.png",title:"安智商城微信小程序",desc:"WEB: Vue3 + Uni-app"},
+        {src:"/public/lunbo/anzhi_02.png",title:"安智商城微信小程序",desc:"--登录页面--"},
     ];
     const webImgs = ref(allimgs);
 
@@ -78,5 +81,5 @@ export const useWorksStore = defineStore('works', () => {
         webImgs.value = allimgs;
     } 
 
-  return { allimgs,webImgs,imgs,checkCurrent}
+  return { allimgs,webImgs,imgs,checkCurrent,getImgUrl}
 })

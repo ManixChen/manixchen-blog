@@ -1,28 +1,26 @@
 <script setup>
-import { defineAsyncComponent} from "vue"; 
+import { defineAsyncComponent,nextTick, onMounted} from "vue"; 
 import { storeToRefs } from "pinia";
 import { DocumentCopy } from "@element-plus/icons-vue";
 const LoginForm = defineAsyncComponent(() => import("./LoginForm.vue"));
 const RegisterForm = defineAsyncComponent(() => import("./RegisterForm.vue"));
-import { useLoginboxStore } from "@/stores/loginbox";
-
+import { useLoginboxStore } from "@/stores/loginbox"; 
 const loginboxStore = useLoginboxStore();
-const { isLogin,locale} = storeToRefs(loginboxStore)
+const { isLogin,locale} = storeToRefs(loginboxStore) 
 </script>
 
 <template>
   <div class="user-box">
     <div class="container">
       <span @click="loginboxStore.changeLang" id="change-lang">
-        <b v-if="locale == 'en-us'">中</b>
-        <b v-if="locale == 'zh-cn'">ENG</b>
+        <b>{{ locale== "en-us"?'中':'ENG' }}</b>
         <el-icon v-show="false"><DocumentCopy /></el-icon>
       </span>
-      <Transition name="sun-login">
-        <LoginForm v-if="isLogin" />
+      <Transition name="sun-login" v-if="isLogin" >
+        <LoginForm />
       </Transition>
-      <Transition name="sun-register">
-        <RegisterForm  v-if="!isLogin" />
+      <Transition name="sun-register"   v-if="!isLogin" >
+        <RegisterForm/>
       </Transition>
     </div>
   </div>

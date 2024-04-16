@@ -19,22 +19,22 @@
       >
         <el-form-item prop="name">
           <el-input
-            id="name"
+            id="name" 
             v-model="contactForm.name"
             :placeholder="$t('login.UserName')"
           />
         </el-form-item>
         <el-form-item prop="password">
           <el-input
-            type="password"
+            type="password" 
             v-model="contactForm.password"
             :placeholder="$t('login.Password')"
           />
         </el-form-item>
         <div class="rember">
-          <el-checkbox
+          <el-checkbox  prop="rember"
             @change="loginstore.remberInfo"
-            v-model="contactForm.rember"
+            v-model="contactForm.rember"  
             :label="$t('login.RememberMe')"
             name="type"
           />

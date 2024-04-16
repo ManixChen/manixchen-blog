@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, onMounted } from "vue";
+import { nextTick, onMounted} from "vue";
 import { useWorksStore } from "@/stores/works";
 import { storeToRefs } from "pinia";
 const worksStore = useWorksStore();
@@ -35,7 +35,7 @@ onMounted(() => {
                   previewTeleported
                   :initial-index="key"
                   closeOnPressEscape
-                  :src="img.src"
+                  :src="worksStore.getImgUrl(img.src)"
                   :title="img.title"
                 />
                <div>

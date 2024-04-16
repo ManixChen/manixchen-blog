@@ -17,53 +17,74 @@ export const useLoginStore = defineStore("login", () => {
   const contactFormRef = ref();
   // 表单默认值
   const contactForm = reactive({
-    name: "",
-    password: "",
+    // name: '',
+    // password: '',
     rember: false,
   });
-  const infoStr=ref();
-
-  // 登录校验规则
-  // const rules = reactive({
-  //   name: [
-  //     {
-  //       required: true,
-  //       message: t("login.AccountCannotEmpty"),
-  //       trigger: "blur",
-  //     },
-  //     { min: 4, message: t("login.MinUserinfo") },
-  //     { max: 12, message: t("login.MaxUserinfo") },
-  //   ],  
-  // });
+  const infoStr=ref(); 
 
   // 提交登录校验提示 （计算属性才能解决在store中相应数据问题）
-  const rules = computed(()=>{
-    return {
-      name: [
-        {
-          required: true,
-          message: t("login.AccountCannotEmpty"),
-          trigger: "blur",
-        },
-        { min: 4, message: t("login.MinUserinfo") },
-        { max: 12, message: t("login.MaxUserinfo") },
-      ],
-      password: [
-        {
-          required: true,
-          message: t("login.NeedPassword"),
-          trigger: "blur",
-        },
-        { min: 6, message: t("login.PasswordMinChar") },
-        { max: 15, message: t("login.PasswordMaxChar") },
-        {
-          pattern: /^\S{6,15}$/,
-          message: t("login.UserBetweeninfo"),
-          trigger: "blur",
-        },
-      ],
-      rember: [],
-    }
+  // const rules = computed(()=>{
+  //   return {
+  //     name: [
+  //       {
+  //         required: true,
+  //         message: t("login.AccountCannotEmpty"),
+  //         trigger: ["blur",'change'],
+  //       },
+  //       { min: 4, message: t("login.MinUserinfo") ,
+  //       trigger: ["blur",'change'],},
+  //       { max: 12, message: t("login.MaxUserinfo"),
+  //       trigger: ["blur",'change'], },
+  //     ],
+  //     password: [
+  //       {
+  //         required: true,
+  //         message: t("login.NeedPassword"),
+  //         trigger: ["blur",'change'],
+  //       },
+  //       { min: 6, message: t("login.PasswordMinChar"),
+  //       trigger: ["blur",'change'], },
+  //       { max: 15, message: t("login.PasswordMaxChar") ,
+  //       trigger: "blur",},
+  //       {
+  //         pattern: /^\S{6,15}$/,
+  //         message: t("login.UserBetweeninfo"),
+  //         trigger: "blur",
+  //       },
+  //     ],
+  //     rember: [],
+  //   }
+  // })
+  const rules = reactive({
+    name: [
+      {
+        required: true,
+        message: computed(()=>{return t("login.AccountCannotEmpty")}),
+        trigger: ["blur",'change'],
+      },
+      { min: 4, message: computed(()=>{return t("login.MinUserinfo")}) ,
+      trigger: ["blur",'change'],},
+      { max: 12, message: computed(()=>{return t("login.MaxUserinfo")}),
+      trigger: ["blur",'change'], },
+    ],
+    password: [
+      {
+        required: true,
+        message: computed(()=>{return t("login.NeedPassword")}),
+        trigger: ["blur",'change'],
+      },
+      { min: 6, message: computed(()=>{return t("login.PasswordMinChar")}),
+      trigger: ["blur",'change'], },
+      { max: 15, message: computed(()=>{return t("login.PasswordMaxChar")}) ,
+      trigger: "blur",},
+      {
+        pattern: /^\S{6,15}$/,
+        message: computed(()=>{return t("login.UserBetweeninfo")}),
+        trigger: "blur",
+      },
+    ],
+    rember: [],
   })
   // const WrongInformation =;
   const submitForm = async (formCotact) => {
@@ -159,19 +180,26 @@ export const useLoginStore = defineStore("login", () => {
   }
   //
   onMounted(() => { 
-    loginboxStore.changeLang(storage.getCache("locale")); //通过缓存初始化语言
-    nextTick(() => {
+    nextTick(() => { 
+      // contactForm.value.resetFields()
+      loginboxStore.changeLang(storage.getCache("locale")); //通过缓存初始化语言
       // 查看是否记住密码 
       const isRember = storage.getCache("isRember")===true?true:false;
       if(isRember){
         contactForm.rember = isRember;
         const uuuinfo =JSON.parse( storage.getCache("cusser_info"));
-        contactForm.name=uuuinfo.name;
-        contactForm.password=uuuinfo.password;
+        console.error("uuuinfo",uuuinfo)
+        if(uuuinfo){ 
+          contactForm.name=uuuinfo.name;
+          contactForm.password=uuuinfo.password;
+        }
       }
     // console.warn(loginLangTour);
     // loginLangTour.value = true;
     // loginLangTour.TourStep.current =2;
+    contactFormRef.value.resetFields()
+    contactFormRef.value.clearValidate('name')
+    contactFormRef.value.clearValidate('password')
     });
   });
 

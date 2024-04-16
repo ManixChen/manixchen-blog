@@ -44,6 +44,7 @@ export default defineConfig({
     }), 
   ],
   base: '/manix/',//远程部署哪个目录就配置啥，如果是根目录就为空，或者不配 
+  //publicDir: "/manix/", //静态资源服务的文件夹
   publicDir: "/manix/", //静态资源服务的文件夹
   resolve: {
     alias: {
@@ -93,7 +94,7 @@ export default defineConfig({
   // // 设置为 false 可以禁用最小化混淆，
   // // 或是用来指定使用哪种混淆器
   // // boolean | 'terser' | 'esbuild'
-  // minify: "terser", //terser 构建后文件体积更小
+  minify: "terser", //terser 构建后文件体积更小
   //传递给 Terser 的更多 minify 选项。
   terserOptions: {
     compress:{
@@ -107,6 +108,20 @@ export default defineConfig({
   brotliSize: true, //启用/禁用 brotli 压缩大小报告
   chunkSizeWarningLimit: 1500 //chunk 大小警告的限制
  },
+  // 添加 copy 配置
+  // copy: [
+  //   {
+  //     // 源目录，这里是项目根目录下的 public 文件夹
+  //     src: '/src/assets/images/lunbo',
+  //     // 目标目录，这里是构建输出目录，通常是 dist
+  //     dest: 'dist/assets/images',
+  //     // 如果设置为 true，将不仅仅复制文件，还会在文件内容中替换文件名中的变量
+  //     // 例如，如果你有一个 <%= VARIABLE %> 在文件内容中，它会被替换
+  //     // 通常这个选项用于动态替换环境变量等
+  //     // 这里我们保持 false，不进行任何替换
+  //     transform: false,
+  //   },
+  // ],
 //  ssr: {
 //   // 列出的是要为 SSR 强制外部化的依赖
 //   external: [],

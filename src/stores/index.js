@@ -28,5 +28,5 @@ export const useIndexStore = defineStore('index', () => {
     storage.clearCache();
     router.push('/login');  
   }  
-  return { bgmusic,isActive,playAudio, logoutPage, x,y ,isLoging}
+  return { bgmusic,isActive,playAudio, logoutPage,isPlay, x,y ,isLoging}
 })

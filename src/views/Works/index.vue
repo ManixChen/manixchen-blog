@@ -1,5 +1,6 @@
 <script setup>
 import SecondTitle from "../Layout/component/SecondTitle.vue";
+
 </script>
 
 

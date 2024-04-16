@@ -1,4 +1,5 @@
 <script setup>
+import { useHomeStore } from "@/stores/home";
 import logoCircle from"/src/assets/manix2.png"
 // import { testAPI } from "@/api/testApi";
 // // 测试天气接口

@@ -14,10 +14,10 @@ import router from "./router";
 // import axios from "axios"; 
 
 const app = createApp(App);
+app.use(i18n); 
 app.config.globalProperties.$notify =  ElNotification;
 app.config.globalProperties.$message =  ElMessage;
 app.use(createPinia());
 app.use(router); 
-app.use(i18n); 
 
 app.mount("#app");

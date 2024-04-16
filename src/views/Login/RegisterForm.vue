@@ -73,7 +73,7 @@ import { storeToRefs } from "pinia";
 import { useRegisterStore } from "@/stores/register";
 const registerstore = useRegisterStore();
 const { registerFormRef, contactForm, rules } = storeToRefs(registerstore);
-// 父组件方法
+// 父组件方法 
 // defineEmits(["whetherRegister"]);
 </script>
 
